@@ -2,6 +2,8 @@ package com.ocean.springboot;
 
 import java.util.Arrays;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +27,8 @@ Locate your main application class in a root package above other classes.
 @SpringBootApplication
 public class Application 
 {
+	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+	
 	public static void main(String[] args) 
 	{
 		/** The main() method uses Spring Boot’s SpringApplication.run() method to launch an application **/
@@ -43,7 +47,8 @@ public class Application
 		return args -> 
 		{
             System.out.println("Let's inspect the beans provided by Spring Boot:");
-
+            logger.info("INFO: Beans provided by spring boot");
+            
             String[] beanNames = applicationContext.getBeanDefinitionNames();
             Arrays.sort(beanNames);
             for (String beanName : beanNames) 
