@@ -24,7 +24,7 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- Additional: Management services (health, audit, beans) -->
+        <!-- Additional: Management services (health, audit, beans and more) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
