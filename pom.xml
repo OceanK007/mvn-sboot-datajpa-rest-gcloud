@@ -29,6 +29,26 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        
+        <!-- Additional: Spring data jpa -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        
+        <!-- The H2 Console application lets you access a database using a browser. 
+        This can be a H2 database, or another database that supports the JDBC API. 
+        This is a client/server application, so both a server and a client (a browser) are required to run it. -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        
+        <!-- Additional: Adding joda-time -->
+        <dependency>
+		    <groupId>joda-time</groupId>
+		    <artifactId>joda-time</artifactId>
+		</dependency>
     </dependencies>
 
     <properties>
