@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="user")
 public class User extends GenericMasterEntity implements Serializable
 {
 	private static final long serialVersionUID = 4492258825312384720L;
@@ -19,9 +23,9 @@ public class User extends GenericMasterEntity implements Serializable
 	@Column(name="password")
 	private String password;
 	
-	@JoinColumn(name="profile_id")
+	@JoinColumn(name="role_id")
 	@ManyToOne(fetch=FetchType.LAZY)
-	private Profile profile;
+	private Role role;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
 	private List<UserDetail> userDetail;
@@ -42,11 +46,19 @@ public class User extends GenericMasterEntity implements Serializable
 		this.password = password;
 	}
 
-	public Profile getProfile() {
-		return profile;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setProfile(Profile profile) {
-		this.profile = profile;
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public List<UserDetail> getUserDetail() {
+		return userDetail;
+	}
+
+	public void setUserDetail(List<UserDetail> userDetail) {
+		this.userDetail = userDetail;
 	}
 }

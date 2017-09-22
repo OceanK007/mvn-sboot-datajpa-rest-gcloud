@@ -1,6 +1,6 @@
 package com.ocean.springboot.data.enums;
 
-public enum ProfileType 
+public enum RoleType 
 {
 	ADMIN("Admin"),
 	USER("User"),
@@ -8,7 +8,7 @@ public enum ProfileType
 	
 	private String name;
 	
-	ProfileType(String name) 
+	RoleType(String name) 
 	{
 		this.name=name;
 	}
