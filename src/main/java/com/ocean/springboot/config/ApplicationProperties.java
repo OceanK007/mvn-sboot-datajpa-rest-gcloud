@@ -14,6 +14,8 @@ import org.springframework.core.env.Environment;
 	classpath:/ resolve to project directory
 	
 	classpath:/ by default it looks in src/main/resources folder. To scan in particular folder structure use classpath:/com/folder/app.properties
+	
+	Note: You don't need ApplicationProperties.java if you have put application.properties in src/main/resources folder. It will auto fetch it.
 *************************************************************************
 ************************************************************************/
 
