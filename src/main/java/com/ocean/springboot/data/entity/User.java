@@ -1,14 +1,14 @@
 package com.ocean.springboot.data.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,12 +23,15 @@ public class User extends GenericMasterEntity implements Serializable
 	@Column(name="password")
 	private String password;
 	
-	@JoinColumn(name="role_id")
+	@Column(name="role_id")
+	private Long roleId;
+	
+	@JoinColumn(name="role_id", insertable=false, updatable=false)
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Role role;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
-	private List<UserDetail> userDetail;
+	@OneToOne(fetch=FetchType.LAZY, mappedBy="user", cascade=CascadeType.ALL)
+	private UserDetail userDetail;
 
 	public String getUsername() {
 		return username;
@@ -46,6 +49,14 @@ public class User extends GenericMasterEntity implements Serializable
 		this.password = password;
 	}
 
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+
 	public Role getRole() {
 		return role;
 	}
@@ -54,11 +65,11 @@ public class User extends GenericMasterEntity implements Serializable
 		this.role = role;
 	}
 
-	public List<UserDetail> getUserDetail() {
+	public UserDetail getUserDetail() {
 		return userDetail;
 	}
 
-	public void setUserDetail(List<UserDetail> userDetail) {
+	public void setUserDetail(UserDetail userDetail) {
 		this.userDetail = userDetail;
 	}
 }
