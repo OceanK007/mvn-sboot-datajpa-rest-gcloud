@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,14 +23,23 @@ public class ApplicationConfiguration
 	@Autowired
 	ApplicationProperties applicationProperties;
 	
-	// To fetch data using annotation from application.properties, use this.
+	/*@Value("${custom.packageToScan}")
+	private String PACKAGE_TO_SCAN;
+	
 	@Value("${custom.hibernate.ddl-auto}")	
 	private String DDL;
 	
-	@Value("${custom.packageToScan}")
-	private String PACKAGE_TO_SCAN;
+	@Value("${custom.hibernate.dialect}")
+	private String DIALECT;
 	
-	@Bean
+	@Value("${custom.hibernate.show_sql}")
+	private String SHOW_SQL;
+	
+	@Value("${custom.hibernate.format_sql}")
+	private String FORMAT_SQL;*/
+	
+	// For explicit configuration, use these.
+	/*@Bean
 	public DataSource dataSource() 
 	{
 		DataSourceBuilder dataSource = DataSourceBuilder.create();
@@ -43,15 +53,27 @@ public class ApplicationConfiguration
 	}
 	
 	@Bean
+	public Properties hibernateProperties()
+	{
+		Properties hibernateProperties = new Properties();
+		hibernateProperties.put("hibernate.hbm2ddl.auto", DDL);
+		hibernateProperties.put("hibernate.dialect", DIALECT);
+		hibernateProperties.put("hibernate.show_sql", SHOW_SQL);
+		hibernateProperties.put("hibernate.format_sql", FORMAT_SQL);
+		return hibernateProperties;
+	}
+	
+	@Bean
 	public LocalSessionFactoryBean sessionFactory()
 	{
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(dataSource());
-		sessionFactory.setPackagesToScan(PACKAGE_TO_SCAN);
-		Properties hibernateProperties = new Properties();
-		hibernateProperties.put("hibernate.hbm2ddl.auto", DDL);
-		sessionFactory.setHibernateProperties(hibernateProperties);
+		sessionFactory.setPackagesToScan(PACKAGE_TO_SCAN);		// Replacement of @ComponentScan of @SpringBootApplication annotation
+		sessionFactory.setHibernateProperties(hibernateProperties());
+		//Properties hibernateProperties = new Properties();
+		//hibernateProperties.put("hibernate.hbm2ddl.auto", DDL);
+		//sessionFactory.setHibernateProperties(hibernateProperties);
 		
 		return sessionFactory;
-	}
+	}*/
 }
