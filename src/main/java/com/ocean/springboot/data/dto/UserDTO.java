@@ -5,7 +5,7 @@ public class UserDTO extends GenericMasterDTO
 {
 	private String username;
 	private String password;
-	private String role;
+	private RoleDTO roleDTO;
 	private UserDetailDTO userDetailDTO;
 	
 	public String getUsername() {
@@ -20,11 +20,11 @@ public class UserDTO extends GenericMasterDTO
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRole() {
-		return role;
+	public RoleDTO getRoleDTO() {
+		return roleDTO;
 	}
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoleDTO(RoleDTO roleDTO) {
+		this.roleDTO = roleDTO;
 	}
 	public UserDetailDTO getUserDetailDTO() {
 		return userDetailDTO;
