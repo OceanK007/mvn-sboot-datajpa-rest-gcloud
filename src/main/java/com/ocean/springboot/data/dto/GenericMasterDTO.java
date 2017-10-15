@@ -5,6 +5,7 @@ public class GenericMasterDTO
 	private Long id;
 	private Long dateCreated;
 	private Long dateModified;
+	private String zoneId;
 	
 	public Long getId() {
 		return id;
@@ -23,5 +24,11 @@ public class GenericMasterDTO
 	}
 	public void setDateModified(Long dateModified) {
 		this.dateModified = dateModified;
+	}
+	public String getZoneId() {
+		return zoneId;
+	}
+	public void setZoneId(String zoneId) {
+		this.zoneId = zoneId;
 	}
 }

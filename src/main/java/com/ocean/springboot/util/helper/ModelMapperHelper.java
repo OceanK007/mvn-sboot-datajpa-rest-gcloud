@@ -12,7 +12,7 @@ import org.modelmapper.spi.MappingContext;
 
 public class ModelMapperHelper 
 {
-	/** Model Mapper: To map DTO to Entity and vice-versa **/
+	/** ModelMapper: To map DTO to Entity and vice-versa | etc **/
 	public static ModelMapper modelMapper = new ModelMapper();
 	
 	static 

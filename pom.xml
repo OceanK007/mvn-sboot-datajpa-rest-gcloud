@@ -50,6 +50,7 @@
 		    <artifactId>joda-time</artifactId>
 		</dependency>
 		
+		<!-- It's used to define @Type in entity files : @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime") -->
 		<dependency>
 		    <groupId>org.jadira.usertype</groupId>
 		    <artifactId>usertype.extended</artifactId>

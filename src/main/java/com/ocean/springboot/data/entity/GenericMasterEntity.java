@@ -1,5 +1,7 @@
 package com.ocean.springboot.data.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +14,10 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 @MappedSuperclass	// This class won't be persisted
-public class GenericMasterEntity 
+public class GenericMasterEntity implements Serializable
 {
+	private static final long serialVersionUID = -7129389120158566946L;
+
 	/********************************************************************************************************************************************** 
 	 	There are some changes in hibernate4 and 5. 
 	 	When GenerationType.AUTO is set then in hibernate4, it doesn't create hibernate_sequence table, but in hibernate5, it does create hibernate_sequence
@@ -48,23 +52,31 @@ public class GenericMasterEntity
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+
+	//@Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")	// In Database: column data-type will be TimeStamp (hibernate 3)
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")	// In Database: column data-type will be DateTime (hibernate 4 & 5)
     @Column(name = "date_created")
 	private DateTime dateCreated;
 	
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")	// In Database: column data-type will be DateTime
     @Column(name = "date_modified")
 	private DateTime dateModified;
 
+	@Column(name="zone_id")
+	private String zoneId;
+	
     @PrePersist
     public void onSave()
     {
+    	if(this.zoneId == null)
+    	{
+    		this.zoneId = DateTimeZone.UTC.getID(); 	//DateTime.now(DateTimeZone.UTC).getZone().toString();
+    	}
     	if (this.dateCreated == null) 
     	{
-            this.dateCreated = DateTime.now(DateTimeZone.UTC);
+            this.dateCreated = DateTime.now(DateTimeZone.UTC);	// Saving in UTC timing
         }
-        this.dateModified = DateTime.now(DateTimeZone.UTC);
+        this.dateModified = DateTime.now(DateTimeZone.UTC);	
     }
     
 	public Long getId() {
@@ -89,5 +101,13 @@ public class GenericMasterEntity
 
 	public void setDateModified(DateTime dateModified) {
 		this.dateModified = dateModified;
+	}
+
+	public String getZoneId() {
+		return zoneId;
+	}
+
+	public void setZoneId(String zoneId) {
+		this.zoneId = zoneId;
 	}
 }

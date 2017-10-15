@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -26,6 +28,7 @@ public class UserDetail extends GenericMasterEntity implements Serializable
 	@Column(name="last_name")
 	private String lastName;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(name="gender")
 	private Gender gender;
 	
