@@ -2,7 +2,7 @@ package com.ocean.springboot.data.dto;
 
 import com.ocean.springboot.data.enums.Gender;
 
-public class UserDetailDTO extends GenericMasterDTO
+public class UserDetailDTO extends AbstractMasterDTO
 {
 	private String firstName;
 	private String middleName;

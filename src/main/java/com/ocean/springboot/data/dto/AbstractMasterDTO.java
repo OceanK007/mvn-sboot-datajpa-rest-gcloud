@@ -1,6 +1,9 @@
 package com.ocean.springboot.data.dto;
 
-public class GenericMasterDTO 
+/** 
+	Abstract classes improve the situation by preventing a developer from instantiating the base class, because a developer has marked it as having missing functionality.
+**/
+public abstract class AbstractMasterDTO 
 {
 	private Long id;
 	private Long dateCreated;

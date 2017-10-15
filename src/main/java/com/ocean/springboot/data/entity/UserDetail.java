@@ -15,7 +15,7 @@ import com.ocean.springboot.data.enums.Gender;
 
 @Entity
 @Table(name="user_detail")
-public class UserDetail extends GenericMasterEntity implements Serializable
+public class UserDetail extends AbstractMasterEntity implements Serializable
 {
 	private static final long serialVersionUID = 4209395511361145027L;
 	

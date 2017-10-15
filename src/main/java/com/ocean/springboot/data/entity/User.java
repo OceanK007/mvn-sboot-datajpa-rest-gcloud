@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user")
-public class User extends GenericMasterEntity implements Serializable
+public class User extends AbstractMasterEntity implements Serializable
 {
 	private static final long serialVersionUID = 4492258825312384720L;
 	

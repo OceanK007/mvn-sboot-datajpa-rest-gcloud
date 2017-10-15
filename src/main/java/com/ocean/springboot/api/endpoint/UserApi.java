@@ -34,6 +34,11 @@ public class UserApi
 		return userDTO;
 	}
 	
+	/** 
+		@GetMapping is a shortcut for @RequestMapping(method=GET)
+		@GetMapping(path="/add") map only GET requests
+		@RequestMapping maps all HTTP operations by default. Use @RequestMapping(method=GET) or other shortcut annotations to narrow this mapping.
+	**/
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public Page<UserDTO> getUserByPage(@RequestParam(value="page", required=true) int page, @RequestParam(value="pageSize", required=true) int pageSize)
 	{

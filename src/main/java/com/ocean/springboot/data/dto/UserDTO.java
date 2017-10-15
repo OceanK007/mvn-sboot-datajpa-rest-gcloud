@@ -1,7 +1,7 @@
 package com.ocean.springboot.data.dto;
 
 
-public class UserDTO extends GenericMasterDTO
+public class UserDTO extends AbstractMasterDTO
 {
 	private String username;
 	private String password;

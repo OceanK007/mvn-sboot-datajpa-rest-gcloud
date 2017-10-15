@@ -1,6 +1,6 @@
 package com.ocean.springboot.data.dto;
 
-public class RoleDTO extends GenericMasterDTO
+public class RoleDTO extends AbstractMasterDTO
 {
 	private String roleType;
 

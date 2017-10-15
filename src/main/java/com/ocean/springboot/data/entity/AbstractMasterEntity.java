@@ -13,8 +13,11 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+/** 
+	Abstract classes improve the situation by preventing a developer from instantiating the base class, because a developer has marked it as having missing functionality.
+**/
 @MappedSuperclass	// This class won't be persisted
-public class GenericMasterEntity implements Serializable
+public abstract class AbstractMasterEntity implements Serializable
 {
 	private static final long serialVersionUID = -7129389120158566946L;
 

@@ -12,7 +12,7 @@ import com.ocean.springboot.data.enums.RoleType;
 
 @Entity
 @Table(name="role")
-public class Role extends GenericMasterEntity implements Serializable
+public class Role extends AbstractMasterEntity implements Serializable
 {
 	private static final long serialVersionUID = -967671354022651453L;
 	
