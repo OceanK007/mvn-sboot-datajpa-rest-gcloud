@@ -18,6 +18,7 @@ import com.ocean.springboot.data.entity.User;
 import com.ocean.springboot.data.repository.UserRepository;
 import com.ocean.springboot.service.UserService;
 import com.ocean.springboot.util.helper.ModelMapperHelper;
+import com.ocean.springboot.util.mapper.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	@Override
 	public UserDTO saveUser(UserDTO userDTO) 
@@ -43,12 +47,13 @@ public class UserServiceImpl implements UserService
 	@Override
 	public Page<UserDTO> getUserByPage(int page, int pageSize) 
 	{
-		Pageable pageable = new PageRequest(page-1, pageSize);
+		Pageable pageable = new PageRequest(page, pageSize);	// Pages are zero indexed, thus providing 0 for page will return the first page.
+		
 		logger.info("Retrieving users with page: "+page+" | pageSize: "+pageSize);
 		Page<User> pageUser = userRepository.findUserByPage(pageable);
 		
 		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
-		pageUser.getContent().forEach(user -> userDTOList.add(modelMapper.map(user, UserDTO.class)));
+		pageUser.getContent().forEach(user -> userDTOList.add(userMapper.mapToDTO(user, new UserDTO())));
 		
 		Page<UserDTO> pageUserDTO = new PageImpl<>(userDTOList, pageable, pageUser.getTotalElements());
 		

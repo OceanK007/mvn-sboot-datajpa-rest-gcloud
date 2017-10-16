@@ -1,7 +1,10 @@
 package com.ocean.springboot.util.mapper;
 
-public abstract class AbstractMapper<AbstractMasterEntity, AbstractMasterDTO>
+/** 
+	Abstract classes improve the situation by preventing a developer from instantiating the base class, because a developer has marked it as having missing functionality.
+**/
+public abstract class AbstractMapper<AbsMasterEntity, AbsMasterDTO>
 {
-	protected abstract AbstractMasterDTO mapToDTO(AbstractMasterEntity sourceAbstractMasterEntity, AbstractMasterDTO targetAbstractMasterDTO);
-	protected abstract AbstractMasterEntity mapToEntity(AbstractMasterDTO sourceAbstractMasterEntity, AbstractMasterEntity targetAbstractMasterEntity);
+	public abstract AbsMasterDTO mapToDTO(AbsMasterEntity sourceEntity, AbsMasterDTO targetDTO);
+	public abstract AbsMasterEntity mapToEntity(AbsMasterDTO sourceDTO, AbsMasterEntity targetEntity);
 }

@@ -1,13 +1,11 @@
 package com.ocean.springboot.data.dto;
 
-import com.ocean.springboot.data.enums.Gender;
-
 public class UserDetailDTO extends AbstractMasterDTO
 {
 	private String firstName;
 	private String middleName;
 	private String lastName;
-	private Gender gender;
+	private String gender;
 	private String email;
 	private String address;
 	private String zip;
@@ -31,10 +29,10 @@ public class UserDetailDTO extends AbstractMasterDTO
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Gender getGender() {
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(Gender gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	public String getEmail() {

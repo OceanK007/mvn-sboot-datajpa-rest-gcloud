@@ -16,7 +16,11 @@
    ** Approach second **
    1. cd project-folder-name
    2. mvn sprint-boot:run
-
+   
+# To run in debug mode:
+   1. cd project-folder-name
+   2. mvnDebug spring-boot:run
+   3. goto eclipse > debug > debug configurations > remote java application > create new configuration
 
 # Branch: sboot-basic-setup
    	> Adding External configuration (.properties file configuration)

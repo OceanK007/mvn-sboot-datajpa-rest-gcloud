@@ -1,7 +1,5 @@
 package com.ocean.springboot.service;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 
 import com.ocean.springboot.data.dto.UserDTO;
