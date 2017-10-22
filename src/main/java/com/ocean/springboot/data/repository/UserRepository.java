@@ -28,4 +28,6 @@ public interface UserRepository extends JpaRepository<User, Long>
 	**/
 	@Query(value="SELECT u FROM User u LEFT JOIN FETCH u.role r LEFT JOIN FETCH u.userDetail ud", countQuery="SELECT COUNT(u) FROM User u")
 	Page<User> findUserByPage(Pageable pageable);
+	
+	User findById(Long id);
 }

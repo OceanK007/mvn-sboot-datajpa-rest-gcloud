@@ -11,6 +11,8 @@ import com.ocean.springboot.data.dto.UserDetailDTO;
 import com.ocean.springboot.data.entity.Role;
 import com.ocean.springboot.data.entity.User;
 import com.ocean.springboot.data.entity.UserDetail;
+import com.ocean.springboot.data.enums.RoleType;
+import com.ocean.springboot.data.repository.RoleRepository;
 
 @Component
 public class UserMapper extends AbstractMapper<User, UserDTO> 
@@ -20,6 +22,9 @@ public class UserMapper extends AbstractMapper<User, UserDTO>
 	
 	@Autowired
 	private UserDetailMapper userDetailMapper;
+	
+	@Autowired
+	private RoleRepository roleRepository;
 	
 	@Override
 	public UserDTO mapToDTO(User sourceEntity, UserDTO targetDTO) 
@@ -36,18 +41,35 @@ public class UserMapper extends AbstractMapper<User, UserDTO>
 	@Override
 	public User mapToEntity(UserDTO sourceDTO, User targetEntity) 
 	{
-		targetEntity.setZoneId(sourceDTO.getZoneId());
-		targetEntity.setDateCreated(new DateTime(sourceDTO.getDateCreated(), DateTimeZone.UTC));
-		targetEntity.setDateModified(new DateTime(sourceDTO.getDateModified(), DateTimeZone.UTC));
+		targetEntity.setZoneId(targetEntity.getZoneId() == null ? sourceDTO.getZoneId() : targetEntity.getZoneId());
 		targetEntity.setUsername(sourceDTO.getUsername());
 		targetEntity.setPassword(sourceDTO.getPassword());
-		targetEntity.setRole(roleMapper.mapToEntity(sourceDTO.getRoleDTO(), new Role()));
-		targetEntity.setUserDetail(userDetailMapper.mapToEntity(sourceDTO.getUserDetailDTO(), new UserDetail()));
+		
+		Role role = null;
+		if(sourceDTO.getRoleDTO() == null)
+		{
+			role = roleRepository.findByRoleType(RoleType.USER);
+			if(role == null)
+			{
+				role = new Role();
+				role.setRoleType(RoleType.USER);
+				roleRepository.save(role);
+			}
+		}
+		else
+		{
+			role = roleRepository.findByRoleType(RoleType.getByName(sourceDTO.getRoleDTO().getRoleType()));
+		}
+		targetEntity.setRole(role);
+		
+		UserDetailDTO userDetailDTO = (sourceDTO.getUserDetailDTO() == null ? new UserDetailDTO() : sourceDTO.getUserDetailDTO());
+		userDetailDTO.setZoneId(sourceDTO.getZoneId());
+		targetEntity.setUserDetail(userDetailMapper.mapToEntity(userDetailDTO, (targetEntity.getUserDetail() == null ? new UserDetail() : targetEntity.getUserDetail())));
 		
 		return targetEntity;
 	}
 	
-	public UserDTO mapToDTOWithoutMappings(User sourceEntity, UserDTO targetDTO)
+	public UserDTO mapToDTOWithoutRelationship(User sourceEntity, UserDTO targetDTO)
 	{
 		targetDTO.setId(sourceEntity.getId());
 		targetDTO.setUsername(sourceEntity.getUsername());

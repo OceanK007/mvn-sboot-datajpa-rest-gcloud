@@ -20,6 +20,8 @@ import com.ocean.springboot.service.UserService;
 import com.ocean.springboot.util.helper.ModelMapperHelper;
 import com.ocean.springboot.util.mapper.UserMapper;
 
+import javassist.tools.web.BadHttpRequest;
+
 @Service
 public class UserServiceImpl implements UserService
 {
@@ -34,13 +36,30 @@ public class UserServiceImpl implements UserService
 	private UserMapper userMapper;
 	
 	@Override
-	public UserDTO saveUser(UserDTO userDTO) 
+	public UserDTO createUser(UserDTO userDTO, String zoneId) 
 	{
-		//Role role = modelMapper.map(userDTO.getRoleDTO(), Role.class);
-		User user = modelMapper.map(userDTO, User.class);
+		userDTO.setZoneId(zoneId);
+		//User user = modelMapper.map(userDTO, User.class);
+		User user = userMapper.mapToEntity(userDTO, new User());
 		userRepository.save(user);
 		logger.info("User saved with ID: "+user.getId());
-		userDTO.setId(user.getId());
+		userDTO = userMapper.mapToDTO(user, new UserDTO());
+		return userDTO;
+	}
+	
+	@Override
+	public UserDTO updateUser(UserDTO userDTO, String zoneId) 
+	{
+		User user = userRepository.findById(userDTO.getId());
+		
+		user = userMapper.mapToEntity(userDTO, user);
+		user.setId(userDTO.getId());
+		user.getUserDetail().setId(userDTO.getUserDetailDTO().getId());
+		
+		userRepository.save(user);
+		logger.info("User updated with ID: "+user.getId());
+		
+		userDTO = userMapper.mapToDTO(user, new UserDTO());
 		return userDTO;
 	}
 

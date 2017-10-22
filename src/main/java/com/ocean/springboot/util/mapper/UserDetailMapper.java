@@ -34,9 +34,9 @@ public class UserDetailMapper extends AbstractMapper<UserDetail, UserDetailDTO>
 		targetDTO.setAddress(sourceEntity.getAddress());
 		targetDTO.setZip(sourceEntity.getZip());
 		//targetDTO.setUserDTO(userMapper.mapToDTO(sourceEntity.getUser(), new UserDTO()));	// It will throw StackOverflowError because of bi-directional mappings
-		UserDTO userDTO = userMapper.mapToDTOWithoutMappings(sourceEntity.getUser(), new UserDTO());
-		userDTO.setRoleDTO(roleMapper.mapToDTO(sourceEntity.getUser().getRole(), new RoleDTO()));
-		targetDTO.setUserDTO(userDTO);
+		//UserDTO userDTO = userMapper.mapToDTOWithoutRelationship(sourceEntity.getUser(), new UserDTO());
+		//userDTO.setRoleDTO(roleMapper.mapToDTO(sourceEntity.getUser().getRole(), new RoleDTO()));
+		//targetDTO.setUserDTO(userDTO);
 		
 		return targetDTO;
 	}
@@ -44,9 +44,7 @@ public class UserDetailMapper extends AbstractMapper<UserDetail, UserDetailDTO>
 	@Override
 	public UserDetail mapToEntity(UserDetailDTO sourceDTO, UserDetail targetEntity) 
 	{
-		targetEntity.setZoneId(sourceDTO.getZoneId());
-		targetEntity.setDateCreated(new DateTime(sourceDTO.getDateCreated(), DateTimeZone.UTC));
-		targetEntity.setDateModified(new DateTime(sourceDTO.getDateModified(), DateTimeZone.UTC));
+		targetEntity.setZoneId(targetEntity.getZoneId() == null ? sourceDTO.getZoneId() : targetEntity.getZoneId());
 		targetEntity.setFirstName(sourceDTO.getFirstName());
 		targetEntity.setMiddleName(sourceDTO.getMiddleName());
 		targetEntity.setLastName(sourceDTO.getLastName());

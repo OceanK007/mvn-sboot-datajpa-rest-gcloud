@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,11 +29,17 @@ public class UserApi
 	UserService userService;
 	
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public UserDTO createUser(UserDTO userDTO) throws JsonProcessingException
+	public UserDTO createUser(@RequestBody UserDTO userDTO, @RequestHeader("zoneId") String zoneId) throws JsonProcessingException
 	{
-		userDTO = userService.saveUser(userDTO);
+		userDTO = userService.createUser(userDTO, zoneId);
 		logger.info("userDTO: "+objectMapper.writeValueAsString(userDTO));
 		return userDTO;
+	}
+	
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public UserDTO updateUser(@RequestBody UserDTO userDTO, @RequestHeader("zoneId") String zoneId)
+	{
+		return userService.updateUser(userDTO, zoneId);
 	}
 	
 	/** 

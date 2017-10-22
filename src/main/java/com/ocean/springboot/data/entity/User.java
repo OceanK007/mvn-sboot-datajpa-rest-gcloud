@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user")
-public class User extends AbstractMasterEntity implements Serializable
+public class User extends AbstractMasterEntityWithZone implements Serializable
 {
 	private static final long serialVersionUID = 4492258825312384720L;
 	
@@ -23,14 +23,12 @@ public class User extends AbstractMasterEntity implements Serializable
 	@Column(name="password")
 	private String password;
 	
-	@Column(name="role_id")
-	private Long roleId;
-	
-	@JoinColumn(name="role_id", insertable=false, updatable=false)
-	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="role_id", nullable=false)
+	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private Role role;
 	
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="user", cascade=CascadeType.ALL)
+	@JoinColumn(name="user_detail_id", nullable=false, unique=true)
+	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL, optional=false)
 	private UserDetail userDetail;
 
 	public String getUsername() {
@@ -47,14 +45,6 @@ public class User extends AbstractMasterEntity implements Serializable
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Long getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
 	}
 
 	public Role getRole() {
