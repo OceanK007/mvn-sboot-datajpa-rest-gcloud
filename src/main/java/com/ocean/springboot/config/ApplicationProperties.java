@@ -3,6 +3,7 @@ package com.ocean.springboot.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.env.Environment;
 
 /*************************************************************************
@@ -20,7 +21,8 @@ import org.springframework.core.env.Environment;
 ************************************************************************/
 
 @Configuration
-@PropertySource("classpath:application.properties")
+//@PropertySource("classpath:application.properties")		// For single .properties file
+@PropertySources({@PropertySource("classpath:application.properties"), @PropertySource("classpath:configuration.properties")})	// For multiple .properties file
 public class ApplicationProperties 
 {
 	@Autowired

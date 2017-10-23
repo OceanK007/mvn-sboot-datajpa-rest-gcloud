@@ -5,9 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 import org.joda.time.DateTimeZone;
+import org.springframework.beans.factory.annotation.Value;
 
 /** 
 	Abstract classes improve the situation by preventing a developer from instantiating the base class, because a developer has marked it as having missing functionality.
@@ -16,6 +16,9 @@ import org.joda.time.DateTimeZone;
 public abstract class AbstractMasterEntityWithZone extends AbstractMasterEntity implements Serializable
 {
 	private static final long serialVersionUID = 7045051117172988133L;
+	
+	@Value("${default.zoneId}")	
+	private String defaultZoneId;
 	
 	/********************************************************************************************************************************************** 
 	 	There are some changes in hibernate4 and 5. 
@@ -55,11 +58,12 @@ public abstract class AbstractMasterEntityWithZone extends AbstractMasterEntity 
     {
     	if(this.zoneId == null)
     	{
-    		this.zoneId = DateTimeZone.UTC.getID(); 	//DateTime.now(DateTimeZone.UTC).getZone().toString();
+    		this.zoneId = defaultZoneId; 	//DateTimeZone.UTC.getID(); 	//DateTime.now(DateTimeZone.UTC).getZone().toString();
     	}
     }
     
     //@PreUpdate
+    // ###
     
 	public String getZoneId() {
 		return zoneId;
