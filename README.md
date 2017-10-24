@@ -53,3 +53,7 @@ https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 # DataJPA URLs
 https://codingexplained.com/coding/java/spring-framework/fetch-query-not-working-spring-data-jpa-pageable
+
+# Exception Handling URLs
+https://www.toptal.com/java/spring-boot-rest-api-error-handling
+https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html

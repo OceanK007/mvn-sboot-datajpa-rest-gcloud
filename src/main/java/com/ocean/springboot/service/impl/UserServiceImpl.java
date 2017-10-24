@@ -20,8 +20,6 @@ import com.ocean.springboot.service.UserService;
 import com.ocean.springboot.util.helper.ModelMapperHelper;
 import com.ocean.springboot.util.mapper.UserMapper;
 
-import javassist.tools.web.BadHttpRequest;
-
 @Service
 public class UserServiceImpl implements UserService
 {
@@ -77,5 +75,12 @@ public class UserServiceImpl implements UserService
 		Page<UserDTO> pageUserDTO = new PageImpl<>(userDTOList, pageable, pageUser.getTotalElements());
 		
 		return pageUserDTO;
+	}
+
+	@Override
+	public UserDTO getUserById(Long userId)
+	{
+		User user = userRepository.findOne(userId);
+		return userMapper.mapToDTO(user, new UserDTO());
 	}
 }
