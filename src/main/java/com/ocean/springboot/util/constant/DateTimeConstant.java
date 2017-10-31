@@ -2,18 +2,19 @@ package com.ocean.springboot.util.constant;
 
 public enum DateTimeConstant 
 {
-	UTC_DATE_FORMAT("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
-	SIMPLE_DATE_FORMAT("yyyy-MM-dd HH:mm:ss");
+	DATE_FORMAT_JODA("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"),
+	DATE_FORMAT_TIMEZONE("yyyy-MM-dd HH:mm:ss 'GMT'Z"),
+	DATE_FORMAT_SIMPLE("yyyy-MM-dd HH:mm:ss");
 	
-	private String name;
+	private String value;
 	
-	private DateTimeConstant(String name) 
+	private DateTimeConstant(String value) 
 	{
-		this.name = name;
+		this.value = value;
 	}
 	
-	public String getName()
+	public String getValue()
 	{
-		return name;
+		return value;
 	}
 }

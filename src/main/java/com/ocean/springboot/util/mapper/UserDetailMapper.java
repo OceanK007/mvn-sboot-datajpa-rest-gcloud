@@ -29,7 +29,7 @@ public class UserDetailMapper extends AbstractMapper<UserDetail, UserDetailDTO>
 		targetDTO.setFirstName(sourceEntity.getFirstName());
 		targetDTO.setMiddleName(sourceEntity.getMiddleName());
 		targetDTO.setLastName(sourceEntity.getLastName());
-		targetDTO.setGender(sourceEntity.getGender().getName());
+		targetDTO.setGender(sourceEntity.getGender().getValue());
 		targetDTO.setEmail(sourceEntity.getEmail());
 		targetDTO.setAddress(sourceEntity.getAddress());
 		targetDTO.setZip(sourceEntity.getZip());
@@ -48,7 +48,7 @@ public class UserDetailMapper extends AbstractMapper<UserDetail, UserDetailDTO>
 		targetEntity.setFirstName(sourceDTO.getFirstName());
 		targetEntity.setMiddleName(sourceDTO.getMiddleName());
 		targetEntity.setLastName(sourceDTO.getLastName());
-		targetEntity.setGender(Gender.getByName(sourceDTO.getGender()));
+		targetEntity.setGender(Gender.getByValue(sourceDTO.getGender()));
 		targetEntity.setEmail(sourceDTO.getEmail());
 		targetEntity.setAddress(sourceDTO.getAddress());
 		targetEntity.setZip(sourceDTO.getZip());

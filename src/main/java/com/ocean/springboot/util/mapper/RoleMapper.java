@@ -15,7 +15,7 @@ public class RoleMapper extends AbstractMapper<Role, RoleDTO>
 	public RoleDTO mapToDTO(Role sourceEntity, RoleDTO targetDTO) 
 	{
 		targetDTO.setId(sourceEntity.getId());
-		targetDTO.setRoleType(sourceEntity.getRoleType().getName());
+		targetDTO.setRoleType(sourceEntity.getRoleType().getValue());
 		
 		return targetDTO;
 	}
@@ -24,7 +24,7 @@ public class RoleMapper extends AbstractMapper<Role, RoleDTO>
 	public Role mapToEntity(RoleDTO sourceDTO, Role targetEntity) 
 	{
 		targetEntity.setId(sourceDTO.getId());
-		targetEntity.setRoleType((sourceDTO.getRoleType() == null) ? RoleType.USER :  RoleType.getByName(sourceDTO.getRoleType()));
+		targetEntity.setRoleType((sourceDTO.getRoleType() == null) ? RoleType.USER :  RoleType.getByValue(sourceDTO.getRoleType()));
 		targetEntity.setDateCreated((sourceDTO.getDateCreated() == null) ? null : new DateTime(sourceDTO.getDateCreated(), DateTimeZone.UTC));
 
 		return targetEntity;

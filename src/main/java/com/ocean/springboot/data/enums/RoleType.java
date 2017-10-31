@@ -8,33 +8,33 @@ public enum RoleType
 	USER("User"),
 	EDITOR("Editor");
 	
-	private String name;
-	private static HashMap<String, RoleType> nameLookup = new HashMap<String, RoleType>();
+	private String value;
+	private static HashMap<String, RoleType> valueLookup = new HashMap<String, RoleType>();
 	
 	static
 	{
 		for(RoleType roleType: values())
 		{
-			nameLookup.put(roleType.getName().toLowerCase(), roleType);
+			valueLookup.put(roleType.getValue().toLowerCase(), roleType);
 		}
 	}
 	
-	RoleType(String name) 
+	RoleType(String value) 
 	{
-		this.name=name;
+		this.value=value;
 	}
 	
-	public String getName()
+	public String getValue()
 	{
-		return name;
+		return value;
 	}
 	
-	public static RoleType getByName(String name)
+	public static RoleType getByValue(String value)
 	{
 		RoleType roleType = null;
-		if(name != null)
+		if(value != null)
 		{
-			roleType = nameLookup.get(name.toLowerCase());
+			roleType = valueLookup.get(value.toLowerCase());
 		}
 		return roleType;
 	}

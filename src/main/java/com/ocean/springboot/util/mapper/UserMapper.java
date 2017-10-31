@@ -58,7 +58,7 @@ public class UserMapper extends AbstractMapper<User, UserDTO>
 		}
 		else
 		{
-			role = roleRepository.findByRoleType(RoleType.getByName(sourceDTO.getRoleDTO().getRoleType()));
+			role = roleRepository.findByRoleType(RoleType.getByValue(sourceDTO.getRoleDTO().getRoleType()));
 		}
 		targetEntity.setRole(role);
 		

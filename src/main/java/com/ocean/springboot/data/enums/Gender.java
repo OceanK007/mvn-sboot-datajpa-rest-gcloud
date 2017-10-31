@@ -8,33 +8,33 @@ public enum Gender
 	F("Female"),
 	O("Others");
 	
-	private String name;
-	private static HashMap<String, Gender> nameLookup = new HashMap<String, Gender>();
+	private String value;
+	private static HashMap<String, Gender> valueLookup = new HashMap<String, Gender>();
 	
 	static
 	{
 		for(Gender gender: values())
 		{
-			nameLookup.put(gender.getName().toLowerCase(), gender);
+			valueLookup.put(gender.getValue().toLowerCase(), gender);
 		}
 	}
 	
-	Gender(String name)
+	Gender(String value)
 	{
-		this.name = name;
+		this.value = value;
 	}
 	
-	public String getName()
+	public String getValue()
 	{
-		return name;
+		return value;
 	}
 	
-	public static Gender getByName(String name)
+	public static Gender getByValue(String value)
 	{
 		Gender gender = null;
-		if(name != null)
+		if(value != null)
 		{
-			gender = nameLookup.get(name.toLowerCase());
+			gender = valueLookup.get(value.toLowerCase());
 		}
 		return gender;
 	}
