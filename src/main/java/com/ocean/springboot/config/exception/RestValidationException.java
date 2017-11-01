@@ -14,4 +14,36 @@ public class RestValidationException
 		this.rejectedValue = rejectedValue;
 		this.message = message;
 	}
+
+	public String getObjectName() {
+		return objectName;
+	}
+
+	public void setObjectName(String objectName) {
+		this.objectName = objectName;
+	}
+
+	public String getFieldName() {
+		return fieldName;
+	}
+
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
+	}
+
+	public Object getRejectedValue() {
+		return rejectedValue;
+	}
+
+	public void setRejectedValue(Object rejectedValue) {
+		this.rejectedValue = rejectedValue;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 }

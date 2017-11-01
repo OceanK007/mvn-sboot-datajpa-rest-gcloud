@@ -71,39 +71,39 @@ public class RestException
 	}
 
 	/** For Field Errors **/
-	private void addValidationException(FieldError fieldError)
+	private void addFieldValidationException(FieldError fieldError)
 	{
 		this.addValidationException(fieldError.getObjectName(), fieldError.getField(), fieldError.getRejectedValue(), fieldError.getDefaultMessage());
 	}
 	
-	void addValidationException(List<FieldError> fieldErrors)
+	void addFieldValidationExceptions(List<FieldError> fieldErrors)
 	{
-		fieldErrors.forEach(this::addValidationException);
-		// fieldErrors.forEach(fError -> addValidationException(fError));	// Or use this
+		fieldErrors.forEach(this::addFieldValidationException);
+		// fieldErrors.forEach(fError -> addFieldValidationException(fError));	// Or use this
 	}
 	
 	/** For Object Errors **/
-    private void addValidationException(ObjectError objectError) 
+    private void addObjectValidationException(ObjectError objectError) 
     {
     	this.addValidationException(objectError.getObjectName(), null, null, objectError.getDefaultMessage());
     }
 
-    void addValidationExceptions(List<ObjectError> globalErrors) 
+    void addObjectValidationExceptions(List<ObjectError> globalErrors) 
     {
-        globalErrors.forEach(this::addValidationException);
-        // globalErrors.forEach(gError -> addValidationException(gError));	// Or use this
+        globalErrors.forEach(this::addObjectValidationException);
+        // globalErrors.forEach(gError -> addObjectValidationException(gError));	// Or use this
     }
     
     /** For ConstraintVoilation Errors **/
-    private void addValidationException(ConstraintViolation<?> cv)
+    private void addConstraintValidationException(ConstraintViolation<?> cv)
     {
     	this.addValidationException(cv.getRootBeanClass().getSimpleName(), ((PathImpl) cv.getPropertyPath()).getLeafNode().asString(), cv.getInvalidValue(), cv.getMessage());
     }
     
-    void addValidationExceptions(Set<ConstraintViolation<?>> constraintViolations)
+    void addConstraintValidationExceptions(Set<ConstraintViolation<?>> constraintViolations)
     {
-    	constraintViolations.forEach(this::addValidationException);
-    	// constraintViolations.forEach(cVoilation -> addValidationException(cVoilation));	// Or use this
+    	constraintViolations.forEach(this::addConstraintValidationException);
+    	// constraintViolations.forEach(cVoilation -> addConstraintValidationException(cVoilation));	// Or use this
     }
 
     /** Additional methods **/
@@ -114,41 +114,77 @@ public class RestException
 			
 		validationExceptions.add(new RestValidationException(objectName, fieldName, rejectedValue, message));
 	}
-	
-    /** Getters **/
+
+    /** Getters and setters **/
 	public String getTimestamp() {
 		return timestamp;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	public int getStatusCode() {
 		return statusCode;
 	}
 
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
+	}
+
 	public String getStatusType() {
 		return statusType;
+	}
+
+	public void setStatusType(String statusType) {
+		this.statusType = statusType;
 	}
 
 	public String getExceptionClass() {
 		return exceptionClass;
 	}
 
+	public void setExceptionClass(String exceptionClass) {
+		this.exceptionClass = exceptionClass;
+	}
+
 	public String getExceptionMessage() {
 		return exceptionMessage;
+	}
+
+	public void setExceptionMessage(String exceptionMessage) {
+		this.exceptionMessage = exceptionMessage;
 	}
 
 	public String getMessage() {
 		return message;
 	}
 
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
 	public HttpMethod getRequestType() {
 		return requestType;
+	}
+
+	public void setRequestType(HttpMethod requestType) {
+		this.requestType = requestType;
 	}
 
 	public String getPath() {
 		return path;
 	}
 
+	public void setPath(String path) {
+		this.path = path;
+	}
+
 	public List<RestValidationException> getValidationExceptions() {
 		return validationExceptions;
+	}
+
+	public void setValidationExceptions(List<RestValidationException> validationExceptions) {
+		this.validationExceptions = validationExceptions;
 	}
 }
