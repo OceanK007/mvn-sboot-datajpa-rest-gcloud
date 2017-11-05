@@ -1,5 +1,9 @@
 package com.ocean.springboot.config.exception;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)	// To remove null fields from json
 public class RestValidationException 
 {
 	private String objectName;

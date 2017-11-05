@@ -2,6 +2,9 @@ package com.ocean.springboot.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -13,12 +16,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.ocean.springboot.config.exception.ApplicationGenericException;
 import com.ocean.springboot.data.dto.UserDTO;
 import com.ocean.springboot.data.entity.User;
 import com.ocean.springboot.data.repository.UserRepository;
 import com.ocean.springboot.service.UserService;
 import com.ocean.springboot.util.helper.ModelMapperHelper;
 import com.ocean.springboot.util.mapper.UserMapper;
+import com.ocean.springboot.util.validator.UserValidator;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -33,9 +38,18 @@ public class UserServiceImpl implements UserService
 	@Autowired
 	private UserMapper userMapper;
 	
+	@Autowired
+	UserValidator userValidator;
+	
 	@Override
-	public UserDTO createUser(UserDTO userDTO, String zoneId) 
+	public UserDTO createUser(UserDTO userDTO, String zoneId) throws ApplicationGenericException 
 	{
+		Map<String, String> validationErrors = userValidator.validate(userDTO);
+		if(!validationErrors.isEmpty())
+		{
+			throw new ApplicationGenericException("Validation error", validationErrors);	// Will be automatically propagated since it's RunTimeException's subclass, so no need to declare it.
+		}
+		
 		userDTO.setZoneId(zoneId);
 		//User user = modelMapper.map(userDTO, User.class);
 		User user = userMapper.mapToEntity(userDTO, new User());
@@ -81,6 +95,8 @@ public class UserServiceImpl implements UserService
 	public UserDTO getUserById(Long userId)
 	{
 		User user = userRepository.findOne(userId);
+		if(user == null)
+			throw new EntityNotFoundException();		// Will be automatically propagated since it's RunTimeException's subclass, so no need to declare it.
 		return userMapper.mapToDTO(user, new UserDTO());
 	}
 }

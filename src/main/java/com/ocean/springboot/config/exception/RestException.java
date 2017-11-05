@@ -38,7 +38,7 @@ public class RestException
 	/** Constructors **/
 	RestException()
 	{
-		timestamp = DateTimeHelper.formatDateTime(DateTime.now(DateTimeZone.UTC), DateTimeConstant.DATE_FORMAT_TIMEZONE.getValue());
+		this.timestamp = DateTimeHelper.formatDateTime(DateTime.now(DateTimeZone.UTC), DateTimeConstant.DATE_FORMAT_TIMEZONE.getValue());
 	}
 
 	RestException(HttpStatus httpStatus)

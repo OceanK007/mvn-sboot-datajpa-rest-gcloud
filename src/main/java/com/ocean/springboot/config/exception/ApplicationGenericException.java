@@ -3,24 +3,27 @@ package com.ocean.springboot.config.exception;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidationException extends Throwable 
+public class ApplicationGenericException extends Exception 
 {
 	private int statusCode;				// For error code like 404, 500, etc
 	private String statusType;			// For exception type. Like "Bad Request"
 	private String message;
-	private Map<String, String> validationExceptionMap;
+	private Map<String, String> exceptionMap;
 	
-	public ValidationException(String message) 
+	public ApplicationGenericException(String message) 
 	{
 		super(message);
+		this.message = message;
 	}
 	
-	public ValidationException(Map<String, String> exceptionMap)
+	public ApplicationGenericException(String message, Map<String, String> exceptionMap)
 	{
-		if(validationExceptionMap == null)
-			validationExceptionMap = new HashMap<String, String>();
+		this(message);
 		
-		validationExceptionMap.putAll(exceptionMap);
+		if(this.exceptionMap == null)
+			this.exceptionMap = new HashMap<String, String>();
+		
+		this.exceptionMap.putAll(exceptionMap);
 	}
 
 	public int getStatusCode() {
@@ -47,11 +50,11 @@ public class ValidationException extends Throwable
 		this.message = message;
 	}
 
-	public Map<String, String> getValidationExceptionMap() {
-		return validationExceptionMap;
+	public Map<String, String> getExceptionMap() {
+		return exceptionMap;
 	}
 
-	public void setValidationExceptionMap(Map<String, String> validationExceptionMap) {
-		this.validationExceptionMap = validationExceptionMap;
+	public void setExceptionMap(Map<String, String> exceptionMap) {
+		this.exceptionMap = exceptionMap;
 	}
 }
