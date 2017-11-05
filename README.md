@@ -41,6 +41,7 @@
 	> Adding MySQL as database
 	> Adding modelMapper to map DTO to Entity and vice-versa
 	> Adding JodaTime
+	> Adding Exception handling for Validations fail. Plus modified some pre-defined exceptions for better explanation
 
 # URLs
 https://spring.io/guides/gs/spring-boot/
