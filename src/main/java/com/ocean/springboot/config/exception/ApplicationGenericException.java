@@ -3,7 +3,7 @@ package com.ocean.springboot.config.exception;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ApplicationGenericException extends Exception 
+public class ApplicationGenericException extends RuntimeException	// Extending RunTimeException, so it will be automatically propagated and won't have to declare it
 {
 	private int statusCode;				// For error code like 404, 500, etc
 	private String statusType;			// For exception type. Like "Bad Request"

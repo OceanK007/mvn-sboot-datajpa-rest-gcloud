@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService
 	UserValidator userValidator;
 	
 	@Override
-	public UserDTO createUser(UserDTO userDTO, String zoneId) throws ApplicationGenericException 
+	public UserDTO createUser(UserDTO userDTO, String zoneId) 
 	{
 		Map<String, String> validationErrors = userValidator.validate(userDTO);
 		if(!validationErrors.isEmpty())

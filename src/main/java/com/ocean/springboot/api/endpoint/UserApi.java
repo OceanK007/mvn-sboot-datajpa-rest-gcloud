@@ -51,7 +51,7 @@ public class UserApi
 	/** @throws ApplicationGenericException 
 	 * @PostMapping is a composed annotation that acts as a shortcut for @RequestMapping(method = RequestMethod.POST) **/
 	@RequestMapping(value="/create", method=RequestMethod.POST)
-	public UserDTO createUser(@RequestBody UserDTO userDTO, @RequestHeader(value="zoneId", required=true) String zoneId) throws JsonProcessingException, ApplicationGenericException
+	public UserDTO createUser(@RequestBody UserDTO userDTO, @RequestHeader(value="zoneId", required=true) String zoneId) throws JsonProcessingException
 	{
 		userDTO = userService.createUser(userDTO, zoneId);
 		logger.info("userDTO: "+objectMapper.writeValueAsString(userDTO));
