@@ -49,12 +49,6 @@ public class UserMapper extends AbstractMapper<User, UserDTO>
 		if(sourceDTO.getRoleDTO() == null)
 		{
 			role = roleRepository.findByRoleType(RoleType.USER);
-			if(role == null)
-			{
-				role = new Role();
-				role.setRoleType(RoleType.USER);
-				roleRepository.save(role);
-			}
 		}
 		else
 		{
