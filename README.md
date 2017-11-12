@@ -42,8 +42,33 @@
 	> Adding modelMapper to map DTO to Entity and vice-versa
 	> Adding JodaTime
 	> Adding Exception handling for Validations fail. Plus modified some pre-defined exceptions for better explanation
+	> Adding indexes to optimize the search from database.
 
-# URLs
+# General information
+
+** Indexes **
+Indexes are used to find rows with specific column values quickly. Without an index, MySQL must begin with the first row and then read through the entire table to find the relevant rows. 
+The larger the table, the more this costs. If the table has an index for the columns in question, MySQL can quickly determine the position to seek to in the middle of the data file without 
+having to look at all the data. This is much faster than reading every row sequentially.
+
+Updating a table with indexes takes more time than updating a table without (because the indexes also need an update). So, only create indexes on columns that will be frequently searched against.
+
+Indexes are automatically created when PRIMARY KEY and UNIQUE constraints are defined on table columns.
+
+Both clustered and nonclustered indexes can be unique. This means no two rows can have the same value for the index key. Otherwise, the index is not unique and multiple rows can share the same key value.
+
+** Clustered Index **
+
+* It creates a physical order of rows.
+* PRIMARY KEY is basically servers as Clustering index.
+* There can be only one clustered index per table, because the data rows themselves can be sorted in only one order. So when you create a table, the rows are sorted with PRIMARY KEY basis.
+* When a table has a clustered index, the table is called a clustered table. If a table has no clustered index, its data rows are stored in an unordered structure called a heap.
+
+** Non-Clustered Index **
+
+* It creates a binary tree and doesn't create a physical order of rows.
+
+# Spring boot URLs
 https://spring.io/guides/gs/spring-boot/
 
 # JodaTime URLs
@@ -58,3 +83,8 @@ https://codingexplained.com/coding/java/spring-framework/fetch-query-not-working
 # Exception Handling URLs
 https://www.toptal.com/java/spring-boot-rest-api-error-handling
 https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/ExceptionHandler.html
+
+# MySQL indexing URLs
+https://dev.mysql.com/doc/refman/5.7/en/mysql-indexes.html
+https://stackoverflow.com/questions/2955459/what-is-an-index-in-sql
+https://www.w3schools.com/sql/sql_create_index.asp

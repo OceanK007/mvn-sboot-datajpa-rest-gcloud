@@ -7,13 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.ocean.springboot.data.enums.Gender;
 
 @Entity
-@Table(name="user_detail")
+@Table(name="user_detail",
+indexes = {@Index(name="first_last_name_index", columnList="first_name, last_name")})
 public class UserDetail extends AbstractMasterEntityWithZone implements Serializable
 {
 	private static final long serialVersionUID = 4209395511361145027L;
