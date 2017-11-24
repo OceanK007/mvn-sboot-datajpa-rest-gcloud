@@ -110,6 +110,39 @@ public void someMethod() {
 In the above example, a transaction will be started (if not already started) before the method invocation; A session will be created by Spring for the transaction, 
 and the session will be automatically flushed before the commit of the transaction, that will be done by Spring automatically when the method returns.
 
+** ----------- Criteria vs Specification vs QueryDSLs ------------ **
+
+** Criteria **
+
+It's generally used to create dynamic queries based on requirements using predicates.
+In criteria, you can create predicates but you can't reuse it somewhere else. Plus to use predicate, you have to use CriteriaBuilder, CriteriaQuery and Root first. 
+
+** Specification ** 
+
+To be able to define reusable Predicates Specification interface has introduced.
+It defines a specification as a predicate over an entity.
+The actually only consists of a single method:
+
+public interface Specification<T> {
+  Predicate toPredicate(Root<T> root, CriteriaQuery query, CriteriaBuilder cb);
+}
+
+** ------------ Metadata -------------- **
+These metamodel classes provide static access to the metadata that describes the attributes of our domain model classes.
+
+When you write a criteria query or create a dynamic entity graph, you need to reference the entity classes and their attributes. 
+The quickest and easiest way is to provide the required names as Strings. But this has several drawbacks, 
+e.g. you have to remember or look-up all the names of the entity attributes when you write the query. 
+But it will also cause even greater issues at later phases of the project, if you have to refactor your entities and change the names of some attributes. 
+In that case you have to use the search function of your IDE and try to find all Strings that reference the changed attributes. 
+This is a tedious and error prone activity which will easily take up the most time of the refactoring.
+
+Prefer to use the static metamodel to write criteria queries and dynamic entity graphs. 
+This is a small feature defined by the JPA specification which provides a type-safe way to reference the entities and their properties.
+
+
+You can create metamodel classes manually. But to avoid manual creation of metadata classe, you can define plugin entry in pom.xml 
+
 # To do
 * Adding projections in jpa
 * Adding search by multiple columns using criteria
@@ -118,6 +151,7 @@ and the session will be automatically flushed before the commit of the transacti
 * Logging AOP
 * Global exception handling
 * session management
+* Swagger implementation
 
 # Spring boot URLs
 https://spring.io/guides/gs/spring-boot/
@@ -139,3 +173,16 @@ https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/b
 https://dev.mysql.com/doc/refman/5.7/en/mysql-indexes.html
 https://stackoverflow.com/questions/2955459/what-is-an-index-in-sql
 https://www.w3schools.com/sql/sql_create_index.asp
+
+# Data JPA Criteria URLs
+http://www.baeldung.com/rest-api-search-language-spring-data-specifications
+http://www.baeldung.com/rest-search-language-spring-jpa-criteria
+https://github.com/pkainulainen/spring-data-jpa-examples/tree/master/criteria-api
+
+# Data JPA Specifications & QueryDSL URLs
+https://spring.io/blog/2011/04/26/advanced-spring-data-jpa-specifications-and-querydsl/
+
+# Data JPA metamodel(Used in criteria, specification, queryDsl) automatic generator URLs
+https://docs.jboss.org/hibernate/orm/5.0/topical/html/metamodelgen/MetamodelGenerator.html
+https://www.thoughts-on-java.org/static-metamodel/
+https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-part-four-jpa-criteria-queries/

@@ -80,4 +80,10 @@ public class UserApi
 	{
 		return userService.getUserById(id);
 	}
+	
+	@RequestMapping(value="/searchUser", method=RequestMethod.POST)
+	public Page<UserDTO> createUser(@RequestBody UserDTO userDTO, @RequestParam(value="page", required=true) int page, @RequestParam(value="pageSize", required=true) int pageSize)
+	{
+		return userService.searchUserByPage(userDTO, page, pageSize);
+	}
 }

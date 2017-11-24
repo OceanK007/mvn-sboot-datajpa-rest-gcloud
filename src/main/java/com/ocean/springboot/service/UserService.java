@@ -11,4 +11,5 @@ public interface UserService
 	UserDTO updateUser(UserDTO userDTO, String zoneId);
 	Page<UserDTO> getUserByPage(int page, int pageSize);
 	UserDTO getUserById(Long userId);
+	Page<UserDTO> searchUserByPage(UserDTO userDTO, int page, int pageSize);
 }

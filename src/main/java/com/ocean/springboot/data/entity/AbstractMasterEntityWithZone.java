@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
+import javax.persistence.Transient;
 
 import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +18,7 @@ public abstract class AbstractMasterEntityWithZone extends AbstractMasterEntity 
 {
 	private static final long serialVersionUID = 7045051117172988133L;
 	
+	@Transient
 	@Value("${default.zoneId}")	
 	private String defaultZoneId;
 	

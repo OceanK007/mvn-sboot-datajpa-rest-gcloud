@@ -70,7 +70,7 @@
 		    <version>1.1.0</version>
 		</dependency>
 		
-		<!-- Additional: StrinUtils methods for string validations -->
+		<!-- Additional: StringUtils methods for string validations -->
 		<dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
@@ -82,21 +82,84 @@
         <java.version>1.8</java.version>
     </properties>
 
-	<!--*********************************************************************
-	*************************************************************************
-		The Spring Boot Maven plugin provides many convenient features:
-	
-		* 	It collects all the jars on the classpath and builds a single, runnable "über-jar", which makes it more convenient to execute and transport your service.
-		*	It searches for the public static void main() method to flag as a runnable class.
-		*	It provides a built-in dependency resolver that sets the version number to match Spring Boot dependencies. You can override any version you wish, but it will default to Boot’s chosen set of versions.
-	*************************************************************************
-	**********************************************************************-->
     <build>
         <plugins>
+        	
+		    <!--*********************************************************************
+			*************************************************************************
+				The Spring Boot Maven plugin provides many convenient features:
+			
+				* 	It collects all the jars on the classpath and builds a single, runnable "über-jar", which makes it more convenient to execute and transport your service.
+				*	It searches for the public static void main() method to flag as a runnable class.
+				*	It provides a built-in dependency resolver that sets the version number to match Spring Boot dependencies. You can override any version you wish, but it will default to Boot’s chosen set of versions.
+			*************************************************************************
+			**********************************************************************-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            
+		    <!--*********************************************************************
+			*************************************************************************
+             	
+             	Additional: Plugin to generate JPA static metamodel (used in criteria, specifications & QueryDsl)
+             	 
+            *************************************************************************
+			**********************************************************************-->
+            <plugin>
+                <groupId>org.bsc.maven</groupId>
+                <artifactId>maven-processor-plugin</artifactId>
+                <version>2.2.4</version>
+                <executions>
+                    <execution>
+                        <id>process</id>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <processors>
+                                <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                            </processors>
+                            <outputDirectory>${project.build.directory}/generated-sources/jpa-metamodel</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-jpamodelgen</artifactId>
+                        <version>4.3.8.Final</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
+           	<!--*********************************************************************
+			*************************************************************************
+             	
+             	Additional: Plugin to add generated jpa-metamodel folder as "Source Folder"
+             	 
+            *************************************************************************
+			**********************************************************************-->
+			
+            <plugin>
+			    <groupId>org.codehaus.mojo</groupId>
+			    <artifactId>build-helper-maven-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <id>add-source</id>
+			            <phase>generate-sources</phase>
+			            <goals>
+			                <goal>add-source</goal>
+			            </goals>
+			            <configuration>
+			                <sources>
+			                    <source>${project.build.directory}/generated-sources/jpa-metamodel</source>
+			                </sources>
+			            </configuration>
+			        </execution>
+			    </executions>
+			 </plugin>
         </plugins>
     </build>
     
