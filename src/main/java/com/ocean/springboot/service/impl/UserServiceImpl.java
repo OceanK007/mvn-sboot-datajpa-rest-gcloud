@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.ocean.springboot.config.exception.ApplicationGenericException;
@@ -90,11 +91,11 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public Page<UserDTO> getUserByPage(int page, int pageSize) 
+	public Page<UserDTO> getUserByPage(Pageable pageable) 
 	{
-		Pageable pageable = new PageRequest(page, pageSize);	// Pages are zero indexed, thus providing 0 for page will return the first page.
+		//Pageable pageable = new PageRequest(page, pageSize);	// Pages are zero indexed, thus providing 0 for page will return the first page.
 		
-		logger.info("Retrieving users with page: "+page+" | pageSize: "+pageSize);
+		logger.info("Retrieving users with pageNumber: "+pageable.getPageNumber()+" | pageSize: "+pageable.getPageSize() +" | and sorting by: "+pageable.getSort());
 		Page<User> pageUser = userRepository.findUserByPage(pageable);
 		
 		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
@@ -115,10 +116,14 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public Page<UserDTO> searchUserByPage(UserDTO userDTO, int page, int pageSize) 
+	public Page<UserDTO> searchUserByPageCriteria(UserDTO userDTO, Pageable pageable) 
 	{
 		// Search criteria applies on : firstName, lastName, roleType, username, userId, email
-		Pageable pageable = new PageRequest(page, pageSize);	// Pages are zero indexed, thus providing 0 for page will return the first page.
+		//Pageable pageable = new PageRequest(page, pageSize);	// Pages are zero indexed, thus providing 0 for page will return the first page.
+		//Pageable pageable = new PageRequest(page, pageSize, Sort.Direction.DESC, "id");
+		
+		logger.info("Retrieving users with pageNumber: "+pageable.getPageNumber()+" | pageSize: "+pageable.getPageSize() +" | and sorting by: "+pageable.getSort());
+		
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
 		Root<User> root = criteriaQuery.from(User.class);
@@ -153,8 +158,9 @@ public class UserServiceImpl implements UserService
 		}
 
 		criteriaQuery.where(predicate);
+		
 		criteriaQuery.orderBy(criteriaBuilder.asc(root.get("id")));
-		List<User> userList = entityManager.createQuery(criteriaQuery).setFirstResult(page * pageSize).setMaxResults(pageSize).getResultList();
+		List<User> userList = entityManager.createQuery(criteriaQuery).setFirstResult(pageable.getPageNumber() * pageable.getPageSize()).setMaxResults(pageable.getPageSize()).getResultList();
 		
 		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
 		userList.forEach(user -> {userDTOList.add(userMapper.mapToDTO(user, new UserDTO()));});

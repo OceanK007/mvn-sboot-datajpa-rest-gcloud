@@ -46,7 +46,7 @@
 
 # General information
 
-** --------- Indexes --------- **
+** ============ Indexes =========== **
 
 Indexes are used to find rows with specific column values quickly. Without an index, MySQL must begin with the first row and then read through the entire table to find the relevant rows. 
 The larger the table, the more this costs. If the table has an index for the columns in question, MySQL can quickly determine the position to seek to in the middle of the data file without 
@@ -79,7 +79,7 @@ All indexes other than the clustered index are known as secondary indexes
 * Create non-unique index (Duplicate values are allowed): CREATE INDEX index_name ON table_name (column1, column2, ...);
 * Create Unique Index (Duplicate values are not allowed): CREATE UNIQUE INDEX index_name ON table_name (column1, column2, ...);
 
-** ---------- Hibernate Template ---------- **
+** ============ Hibernate Template ============ **
 
 * There can be many types of templates like for hibernate, jdbc, rest, jpa etc.
 
@@ -152,6 +152,7 @@ You can create metamodel classes manually. But to avoid manual creation of metad
 * Global exception handling
 * session management
 * Swagger implementation
+* Bulk Updation
 
 # Spring boot URLs
 https://spring.io/guides/gs/spring-boot/

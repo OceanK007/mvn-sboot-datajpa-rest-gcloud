@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ocean.springboot.config.exception.ApplicationGenericException;
 import com.ocean.springboot.data.dto.UserDTO;
 import com.ocean.springboot.service.UserService;
 import com.ocean.springboot.util.constant.ApiConstant;
@@ -48,8 +48,7 @@ public class UserApi
 		    }
 		}
 	**/
-	/** @throws ApplicationGenericException 
-	 * @PostMapping is a composed annotation that acts as a shortcut for @RequestMapping(method = RequestMethod.POST) **/
+	/** @PostMapping is a composed annotation that acts as a shortcut for @RequestMapping(method = RequestMethod.POST) **/
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public UserDTO createUser(@RequestBody UserDTO userDTO, @RequestHeader(value="zoneId", required=true) String zoneId) throws JsonProcessingException
 	{
@@ -69,10 +68,24 @@ public class UserApi
 		@GetMapping(path="/add") map only GET requests
 		@RequestMapping maps all HTTP operations by default. Use @RequestMapping(method=RequestMethod.GET) or other shortcut annotations to narrow this mapping.
 	**/
+	/**
+	 	localhost:8080/api/user/list?pageNumber=0&pageSize=10
+	 	or 
+	 	localhost:8080/api/user/list?page=0&pageSize=10
+	 	or
+	 	localhost:8080/api/user/list?pageNumber=0&size=10
+	 	or
+	 	localhost:8080/api/user/list?page=0&size=10
+	 	or
+	 	localhost:8080/api/user/list?page=0&size=10&sort=id,desc
+	 	or
+	 	localhost:8080/api/user/list					// Default values will be: pageNumber = 0, pageSize = 20, sort = null
+	**/
 	@RequestMapping(value="/list", method=RequestMethod.GET)
-	public Page<UserDTO> getUserByPage(@RequestParam(value="page", required=true) int page, @RequestParam(value="pageSize", required=true) int pageSize)
+	//public Page<UserDTO> getUserByPage(@RequestParam(value="page", required=true) int page, @RequestParam(value="pageSize", required=true) int pageSize)
+	public Page<UserDTO> getUserByPage(Pageable pageable)
 	{
-		return userService.getUserByPage(page, pageSize);
+		return userService.getUserByPage(pageable);
 	}
 	
 	@GetMapping(path="/get")
@@ -81,9 +94,26 @@ public class UserApi
 		return userService.getUserById(id);
 	}
 	
+	/** localhost:8080/api/user/searchUser?page=0&size=10 **/
+	/** 
+	 	{
+		    "username": "ocean1",
+		    "userDetailDTO": 
+		    {
+		        "firstName": "Ocean1",
+		        "lastName": "Life",
+		        "email": "OceanK007@gmail.com"
+		    },
+		    "roleDTO": 
+		    {
+		        "roleType": "User"
+		    }
+		}
+	**/
+	
 	@RequestMapping(value="/searchUser", method=RequestMethod.POST)
-	public Page<UserDTO> createUser(@RequestBody UserDTO userDTO, @RequestParam(value="page", required=true) int page, @RequestParam(value="pageSize", required=true) int pageSize)
+	public Page<UserDTO> createUser(@RequestBody UserDTO userDTO, Pageable pageable)
 	{
-		return userService.searchUserByPage(userDTO, page, pageSize);
+		return userService.searchUserByPageCriteria(userDTO, pageable);
 	}
 }

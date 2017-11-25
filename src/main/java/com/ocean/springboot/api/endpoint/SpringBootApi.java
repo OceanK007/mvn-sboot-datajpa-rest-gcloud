@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ocean.springboot.annotation.Slf4j;
 import com.ocean.springboot.config.ApplicationProperties;
 
 @RestController
@@ -21,6 +22,7 @@ public class SpringBootApi
 	@Value("${application.status}")
 	private String APPLICATION_STATUS;
 	
+	//@Slf4j
 	@RequestMapping(value="/")
 	public String hello()
 	{
