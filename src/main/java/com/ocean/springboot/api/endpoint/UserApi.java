@@ -69,15 +69,11 @@ public class UserApi
 		@RequestMapping maps all HTTP operations by default. Use @RequestMapping(method=RequestMethod.GET) or other shortcut annotations to narrow this mapping.
 	**/
 	/**
-	 	localhost:8080/api/user/list?pageNumber=0&pageSize=10
-	 	or 
-	 	localhost:8080/api/user/list?page=0&pageSize=10
-	 	or
-	 	localhost:8080/api/user/list?pageNumber=0&size=10
-	 	or
 	 	localhost:8080/api/user/list?page=0&size=10
 	 	or
 	 	localhost:8080/api/user/list?page=0&size=10&sort=id,desc
+	 	or
+	 	localhost:8080/api/user/list?page=0&size=10&sort=userDetail.firstName,desc
 	 	or
 	 	localhost:8080/api/user/list					// Default values will be: pageNumber = 0, pageSize = 20, sort = null
 	**/
@@ -94,7 +90,11 @@ public class UserApi
 		return userService.getUserById(id);
 	}
 	
-	/** localhost:8080/api/user/searchUser?page=0&size=10 **/
+	/** 
+	 	localhost:8080/api/user/searchUser?page=0&size=10 
+		or
+		localhost:8080/api/user/searchUser?page=0&size=10&sort=userDetail.firstName,desc
+	**/
 	/** 
 	 	{
 		    "username": "ocean1",
@@ -114,6 +114,7 @@ public class UserApi
 	@RequestMapping(value="/searchUser", method=RequestMethod.POST)
 	public Page<UserDTO> createUser(@RequestBody UserDTO userDTO, Pageable pageable)
 	{
-		return userService.searchUserByPageCriteria(userDTO, pageable);
+		//return userService.searchUserByPageCriteria(userDTO, pageable);
+		return userService.searchUserByPageSpecification(userDTO, pageable);
 	}
 }

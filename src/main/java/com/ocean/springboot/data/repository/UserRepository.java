@@ -3,6 +3,7 @@ package com.ocean.springboot.data.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -19,7 +20,7 @@ import com.ocean.springboot.data.entity.User;
  	JpaRepository Interface
 **/
 
-public interface UserRepository extends JpaRepository<User, Long> 
+public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User>
 {
 	/** 
 		If return type is Page and you are using 'FETCH' in query: you have to define countQuery since internally it tries to execute a query to fetch the count.

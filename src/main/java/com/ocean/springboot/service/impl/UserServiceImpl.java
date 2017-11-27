@@ -22,6 +22,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 
 import com.ocean.springboot.config.exception.ApplicationGenericException;
@@ -30,6 +32,7 @@ import com.ocean.springboot.data.entity.Role_;
 import com.ocean.springboot.data.entity.User;
 import com.ocean.springboot.data.entity.UserDetail_;
 import com.ocean.springboot.data.entity.User_;
+import com.ocean.springboot.data.entity.specification.UserSpecification;
 import com.ocean.springboot.data.enums.RoleType;
 import com.ocean.springboot.data.repository.UserRepository;
 import com.ocean.springboot.service.UserService;
@@ -96,14 +99,14 @@ public class UserServiceImpl implements UserService
 		//Pageable pageable = new PageRequest(page, pageSize);	// Pages are zero indexed, thus providing 0 for page will return the first page.
 		
 		logger.info("Retrieving users with pageNumber: "+pageable.getPageNumber()+" | pageSize: "+pageable.getPageSize() +" | and sorting by: "+pageable.getSort());
-		Page<User> pageUser = userRepository.findUserByPage(pageable);
+		Page<User> pageUserList = userRepository.findUserByPage(pageable);
 		
 		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
-		pageUser.getContent().forEach(user -> userDTOList.add(userMapper.mapToDTO(user, new UserDTO())));
+		pageUserList.getContent().forEach(user -> userDTOList.add(userMapper.mapToDTO(user, new UserDTO())));
 		
-		Page<UserDTO> pageUserDTO = new PageImpl<>(userDTOList, pageable, pageUser.getTotalElements());
+		Page<UserDTO> pageUserDTOList = new PageImpl<>(userDTOList, pageable, pageUserList.getTotalElements());
 		
-		return pageUserDTO;
+		return pageUserDTOList;
 	}
 
 	@Override
@@ -131,18 +134,18 @@ public class UserServiceImpl implements UserService
 		
 		if(userDTO.getUserDetailDTO() != null && !StringUtils.isBlank(userDTO.getUserDetailDTO().getFirstName()))
 		{
-			//predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("userDetail").get("firstName"), userDTO.getUserDetailDTO().getFirstName()));
+			//predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get("userDetail").get("firstName"), "%"+userDTO.getUserDetailDTO().getFirstName()+"%"));
 			
 			// Use metamodel class for type-safety
-			predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get(User_.userDetail).get(UserDetail_.firstName), userDTO.getUserDetailDTO().getFirstName()));
+			predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get(User_.userDetail).get(UserDetail_.firstName), "%"+userDTO.getUserDetailDTO().getFirstName()+"%"));
 		}
 		if(userDTO.getUserDetailDTO() != null && !StringUtils.isBlank(userDTO.getUserDetailDTO().getLastName()))
 		{
-			predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get(User_.userDetail).get(UserDetail_.lastName), userDTO.getUserDetailDTO().getLastName()));
+			predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get(User_.userDetail).get(UserDetail_.lastName), "%"+userDTO.getUserDetailDTO().getLastName()+"%"));
 		}
 		if(userDTO.getUserDetailDTO() != null && !StringUtils.isBlank(userDTO.getUserDetailDTO().getEmail()))
 		{
-			predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get(User_.userDetail).get(UserDetail_.email), userDTO.getUserDetailDTO().getEmail()));
+			predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get(User_.userDetail).get(UserDetail_.email), "%"+userDTO.getUserDetailDTO().getEmail()+"%"));
 		}
 		if(userDTO.getRoleDTO() != null && userDTO.getRoleDTO().getRoleType() != null && !StringUtils.isBlank(userDTO.getRoleDTO().getRoleType()))
 		{
@@ -150,7 +153,7 @@ public class UserServiceImpl implements UserService
 		}
 		if(userDTO != null && userDTO.getUsername() != null && !StringUtils.isBlank(userDTO.getUsername()))
 		{
-			predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get(User_.username), userDTO.getUsername()));
+			predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(root.get(User_.username), "%"+userDTO.getUsername()+"%"));
 		}
 		if(userDTO != null && userDTO.getId() != null)
 		{
@@ -165,8 +168,21 @@ public class UserServiceImpl implements UserService
 		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
 		userList.forEach(user -> {userDTOList.add(userMapper.mapToDTO(user, new UserDTO()));});
 		
-		Page<UserDTO> pageUserDTO = new PageImpl<>(userDTOList, pageable, userList.size());
+		Page<UserDTO> pageUserDTOList = new PageImpl<>(userDTOList, pageable, userList.size());
 		
-		return pageUserDTO;
+		return pageUserDTOList;
+	}
+
+	@Override
+	public Page<UserDTO> searchUserByPageSpecification(UserDTO userDTO, Pageable pageable) 
+	{
+		Page<User> pageUserList = userRepository.findAll(UserSpecification.searchUserBySpecification(userDTO), pageable);
+		//Page<User> pageUserList = userRepository.findAll(Specifications.where(UserSpecification.firstNameLike(userDTO)).and(UserSpecification.lastNameLike(userDTO)));
+		
+		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
+		pageUserList.getContent().forEach(user -> userDTOList.add(userMapper.mapToDTO(user, new UserDTO())));
+		
+		Page<UserDTO> pageUserDTOList = new PageImpl<>(userDTOList, pageable, pageUserList.getTotalElements());
+		return pageUserDTOList;
 	}
 }
