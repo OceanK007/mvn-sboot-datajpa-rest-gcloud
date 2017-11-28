@@ -43,6 +43,9 @@
 	> Adding JodaTime
 	> Adding Exception handling for Validations fail. Plus modified some pre-defined exceptions for better explanation
 	> Adding indexes to optimize the search from database.
+	> Adding Criteria for dynamic query generation.
+	> Adding Specification for dynamic query generation.
+	> Adding QueryDSL for dynamic query generation. (Still didn't implement)
 
 # General information
 
@@ -127,6 +130,15 @@ public interface Specification<T> {
   Predicate toPredicate(Root<T> root, CriteriaQuery query, CriteriaBuilder cb);
 }
 
+Cons:
+It requires quite some coding effort.
+
+** QueryDSL **
+
+QueryDsl is quite similar to specifications but it requires less coding.
+QueryDsl approach is not only available for our JPA repositories but for MongoDB support as well.
+
+
 ** ------------ Metadata -------------- **
 These metamodel classes provide static access to the metadata that describes the attributes of our domain model classes.
 
@@ -182,6 +194,7 @@ https://github.com/pkainulainen/spring-data-jpa-examples/tree/master/criteria-ap
 
 # Data JPA Specifications & QueryDSL URLs
 https://spring.io/blog/2011/04/26/advanced-spring-data-jpa-specifications-and-querydsl/
+https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-part-five-querydsl/
 
 # Data JPA metamodel(Used in criteria, specification, queryDsl) automatic generator URLs
 https://docs.jboss.org/hibernate/orm/5.0/topical/html/metamodelgen/MetamodelGenerator.html
