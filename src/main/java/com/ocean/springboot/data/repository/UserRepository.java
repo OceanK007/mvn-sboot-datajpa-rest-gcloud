@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.ocean.springboot.data.entity.User;
+import com.ocean.springboot.data.entity.projection.UserSummaryProjection;
 
 /** 
  	Repository Interface 
@@ -31,4 +32,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 	Page<User> findUserByPage(Pageable pageable);
 	
 	User findById(Long id);
+	
+	@Query(value="SELECT u.id as userId, u.username as userName, u.userDetail.firstName as firstName, u.userDetail.lastName as lastName, u.userDetail.email as email, u.role.roleType as role FROM User u")
+	Page<UserSummaryProjection> findUserBriefByPage(Pageable pageable);
 }

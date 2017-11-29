@@ -11,6 +11,7 @@ import com.ocean.springboot.data.dto.UserDetailDTO;
 import com.ocean.springboot.data.entity.Role;
 import com.ocean.springboot.data.entity.User;
 import com.ocean.springboot.data.entity.UserDetail;
+import com.ocean.springboot.data.entity.projection.UserSummaryProjection;
 import com.ocean.springboot.data.enums.RoleType;
 import com.ocean.springboot.data.repository.RoleRepository;
 
@@ -68,6 +69,25 @@ public class UserMapper extends AbstractMapper<User, UserDTO>
 		targetDTO.setId(sourceEntity.getId());
 		targetDTO.setUsername(sourceEntity.getUsername());
 		targetDTO.setPassword(sourceEntity.getPassword());
+		return targetDTO;
+	}
+	
+	public UserDTO mapToDTO(UserSummaryProjection sourceEntity, UserDTO targetDTO)
+	{
+		targetDTO.setId(sourceEntity.getUserId());
+		targetDTO.setUsername(sourceEntity.getUserName());
+
+		RoleDTO roleDTO = new RoleDTO();
+		roleDTO.setRoleType(sourceEntity.getRole().getValue());
+		targetDTO.setRoleDTO(roleDTO);
+		
+		UserDetailDTO userDetailDTO = new UserDetailDTO();
+		userDetailDTO.setFirstName(sourceEntity.getFirstName());
+		userDetailDTO.setLastName(sourceEntity.getLastName());
+		userDetailDTO.setEmail(sourceEntity.getEmail());
+		
+		targetDTO.setUserDetailDTO(userDetailDTO);
+		
 		return targetDTO;
 	}
 }

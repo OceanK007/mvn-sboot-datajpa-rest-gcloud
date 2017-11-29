@@ -13,4 +13,5 @@ public interface UserService
 	UserDTO getUserById(Long userId);
 	Page<UserDTO> searchUserByPageCriteria(UserDTO userDTO, Pageable pageable);
 	Page<UserDTO> searchUserByPageSpecification(UserDTO userDTO, Pageable pageable);
+	Page<UserDTO> getUserBriefByPage(Pageable pageable);
 }

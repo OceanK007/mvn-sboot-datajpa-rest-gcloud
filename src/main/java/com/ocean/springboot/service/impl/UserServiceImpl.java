@@ -32,6 +32,7 @@ import com.ocean.springboot.data.entity.Role_;
 import com.ocean.springboot.data.entity.User;
 import com.ocean.springboot.data.entity.UserDetail_;
 import com.ocean.springboot.data.entity.User_;
+import com.ocean.springboot.data.entity.projection.UserSummaryProjection;
 import com.ocean.springboot.data.entity.specification.UserSpecification;
 import com.ocean.springboot.data.enums.RoleType;
 import com.ocean.springboot.data.repository.UserRepository;
@@ -183,6 +184,18 @@ public class UserServiceImpl implements UserService
 		pageUserList.getContent().forEach(user -> userDTOList.add(userMapper.mapToDTO(user, new UserDTO())));
 		
 		Page<UserDTO> pageUserDTOList = new PageImpl<>(userDTOList, pageable, pageUserList.getTotalElements());
+		return pageUserDTOList;
+	}
+
+	@Override
+	public Page<UserDTO> getUserBriefByPage(Pageable pageable) 
+	{
+		Page<UserSummaryProjection> pageUserSummaryProjectionList = userRepository.findUserBriefByPage(pageable);
+		
+		List<UserDTO> userDTOList = new ArrayList<UserDTO>();
+		pageUserSummaryProjectionList.getContent().forEach(usp -> {userDTOList.add(userMapper.mapToDTO(usp, new UserDTO()));});
+		
+		Page<UserDTO> pageUserDTOList = new PageImpl<>(userDTOList, pageable, pageUserSummaryProjectionList.getTotalElements());
 		return pageUserDTOList;
 	}
 }

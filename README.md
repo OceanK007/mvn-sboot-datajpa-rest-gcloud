@@ -157,7 +157,6 @@ You can create metamodel classes manually. But to avoid manual creation of metad
 
 # To do
 * Adding projections in jpa
-* Adding search by multiple columns using criteria
 * connection pooling
 * Transaction management
 * Logging AOP
