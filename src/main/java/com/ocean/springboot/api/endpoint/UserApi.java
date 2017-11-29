@@ -118,7 +118,7 @@ public class UserApi
 		return userService.searchUserByPageSpecification(userDTO, pageable);
 	}
 	
-	@RequestMapping(value="/userBrief", method=RequestMethod.GET)
+	@RequestMapping(value="/userBriefList", method=RequestMethod.GET)
 	public Page<UserDTO> getUserBrief(Pageable pageable)
 	{
 		return userService.getUserBriefByPage(pageable);

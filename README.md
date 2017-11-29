@@ -22,6 +22,9 @@
    2. mvnDebug spring-boot:run
    3. goto eclipse > debug > debug configurations > remote java application > create new configuration
 
+# To access swagger UI:
+   > http://localhost:8080/swagger-ui.html
+
 # Branch: sboot-basic-setup
    	> Adding External configuration (.properties file configuration)
    	> Adding JUnit
@@ -113,7 +116,7 @@ public void someMethod() {
 In the above example, a transaction will be started (if not already started) before the method invocation; A session will be created by Spring for the transaction, 
 and the session will be automatically flushed before the commit of the transaction, that will be done by Spring automatically when the method returns.
 
-** ----------- Criteria vs Specification vs QueryDSLs ------------ **
+** ============ Criteria vs Specification vs QueryDSLs ============ **
 
 ** Criteria **
 
@@ -139,7 +142,7 @@ QueryDsl is quite similar to specifications but it requires less coding.
 QueryDsl approach is not only available for our JPA repositories but for MongoDB support as well.
 
 
-** ------------ Metadata -------------- **
+** ============ Metadata ============ **
 These metamodel classes provide static access to the metadata that describes the attributes of our domain model classes.
 
 When you write a criteria query or create a dynamic entity graph, you need to reference the entity classes and their attributes. 
@@ -155,15 +158,19 @@ This is a small feature defined by the JPA specification which provides a type-s
 
 You can create metamodel classes manually. But to avoid manual creation of metadata classe, you can define plugin entry in pom.xml 
 
+** ============ Swagger ============ **
+Swagger is used to describe and document RESTful APIs.
+
+ 
+
 # To do
-* Adding projections in jpa
 * connection pooling
 * Transaction management
 * Logging AOP
 * Global exception handling
 * session management
-* Swagger implementation
 * Bulk Updation
+* Mongo DB
 
 # Spring boot URLs
 https://spring.io/guides/gs/spring-boot/
@@ -199,3 +206,7 @@ https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tu
 https://docs.jboss.org/hibernate/orm/5.0/topical/html/metamodelgen/MetamodelGenerator.html
 https://www.thoughts-on-java.org/static-metamodel/
 https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-part-four-jpa-criteria-queries/
+
+# Swagger URLs
+https://huongdanjava.com/documenting-your-rest-api-with-swagger-in-spring-boot.html
+https://dzone.com/articles/spring-boot-restful-api-documentation-with-swagger
