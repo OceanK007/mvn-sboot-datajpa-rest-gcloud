@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ocean.springboot.annotation.Slf4j;
+import com.ocean.springboot.annotation.LoggingClass;
+import com.ocean.springboot.annotation.LoggingMethod;
 import com.ocean.springboot.config.ApplicationProperties;
 
 @RestController
+//@LoggingClass
 public class SpringBootApi 
 {
 	private static final Logger logger = LoggerFactory.getLogger(SpringBootApi.class);
@@ -22,7 +24,7 @@ public class SpringBootApi
 	@Value("${application.status}")
 	private String APPLICATION_STATUS;
 	
-	//@Slf4j
+	@LoggingMethod
 	@RequestMapping(value="/")
 	public String hello()
 	{
