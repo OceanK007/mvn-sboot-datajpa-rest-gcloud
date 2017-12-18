@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ocean.springboot.annotation.LoggingClass;
 import com.ocean.springboot.data.dto.UserDTO;
 import com.ocean.springboot.service.UserService;
 import com.ocean.springboot.util.constant.ApiConstant;
 
 @RestController
+//@LoggingClass
 @RequestMapping(ApiConstant.USER_API)
 public class UserApi 
 {

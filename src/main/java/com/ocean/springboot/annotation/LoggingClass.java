@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(value=RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)	// On class level
+//@Target({ElementType.TYPE, ElementType.METHOD})	// On class & method level
 public @interface LoggingClass
 {
 

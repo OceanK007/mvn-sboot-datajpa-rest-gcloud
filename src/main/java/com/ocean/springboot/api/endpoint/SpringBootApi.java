@@ -24,7 +24,7 @@ public class SpringBootApi
 	@Value("${application.status}")
 	private String APPLICATION_STATUS;
 	
-	@LoggingMethod
+	//@LoggingMethod
 	@RequestMapping(value="/")
 	public String hello()
 	{
