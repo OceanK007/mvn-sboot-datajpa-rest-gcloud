@@ -50,6 +50,7 @@
 	> Adding Specification for dynamic query generation.
 	> Adding QueryDSL for dynamic query generation. (Still didn't implement)
 	> Adding Projection to fetch specific numbers of columns.
+	> Adding AOP on class and method level annotations.
 	
 # General information
 
