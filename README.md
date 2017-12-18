@@ -51,6 +51,17 @@
 	> Adding QueryDSL for dynamic query generation. (Still didn't implement)
 	> Adding Projection to fetch specific numbers of columns.
 	> Adding AOP on class and method level annotations.
+
+
+# To do
+* connection pooling
+* Transaction management
+* Logging AOP
+* Global exception handling
+* session management
+* Bulk Updation
+* Mongo DB
+* ThreadLocal variables
 	
 # General information
 
@@ -163,16 +174,28 @@ You can create metamodel classes manually. But to avoid manual creation of metad
 ** ============ Swagger ============ **
 Swagger is used to describe and document RESTful APIs.
 
- 
+** ============ ThreadLocal =========== **
+One possible (and common) use is when you have some object that is not thread-safe, but you want to avoid synchronizing access to that object (like SimpleDateFormat). 
+Instead, give each thread its own instance of the object.
 
-# To do
-* connection pooling
-* Transaction management
-* Logging AOP
-* Global exception handling
-* session management
-* Bulk Updation
-* Mongo DB
+For example:
+
+public class Foo
+{
+   // SimpleDateFormat is not thread-safe, so give one to each thread
+   private static final ThreadLocal<SimpleDateFormat> formatter = new ThreadLocal<SimpleDateFormat>(){
+        @Override
+        protected SimpleDateFormat initialValue()
+        {
+            return new SimpleDateFormat("yyyyMMdd HHmm");
+        }
+   };
+
+   public String formatIt(Date date)
+   {
+        return formatter.get().format(date);
+   }
+}
 
 # Spring boot URLs
 https://spring.io/guides/gs/spring-boot/
@@ -212,3 +235,6 @@ https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tu
 # Swagger URLs
 https://huongdanjava.com/documenting-your-rest-api-with-swagger-in-spring-boot.html
 https://dzone.com/articles/spring-boot-restful-api-documentation-with-swagger
+
+# ThreadLocal Variables URLs
+https://stackoverflow.com/questions/817856/when-and-how-should-i-use-a-threadlocal-variable
