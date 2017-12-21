@@ -62,6 +62,7 @@
 * Bulk Updation
 * Mongo DB
 * ThreadLocal variables
+* Profiles using pom and java
 	
 # General information
 
@@ -238,3 +239,7 @@ https://dzone.com/articles/spring-boot-restful-api-documentation-with-swagger
 
 # ThreadLocal Variables URLs
 https://stackoverflow.com/questions/817856/when-and-how-should-i-use-a-threadlocal-variable
+
+# Cache URLs
+https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-cache
+https://memorynotfound.com/spring-boot-ehcache-2-caching-example-configuration/
