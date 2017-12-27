@@ -1,10 +1,14 @@
 package com.ocean.springboot.data.dto;
 
+import java.io.Serializable;
+
 /** 
 	Abstract classes improve the situation by preventing a developer from instantiating the base class, because a developer has marked it as having missing functionality.
 **/
-public abstract class AbstractMasterDTO 
+public abstract class AbstractMasterDTO implements Serializable
 {
+	private static final long serialVersionUID = -416930898735479578L;
+	
 	private Long id;
 	private Long dateCreated;
 	private Long dateModified;

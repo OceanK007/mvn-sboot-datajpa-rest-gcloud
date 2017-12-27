@@ -17,6 +17,8 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -42,6 +44,7 @@ import com.ocean.springboot.util.mapper.UserMapper;
 import com.ocean.springboot.util.validator.UserValidator;
 
 @Service
+@CacheConfig(cacheNames="userServiceCache")		// To user caching at service layer
 public class UserServiceImpl implements UserService
 {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -111,6 +114,7 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
+	@Cacheable
 	public UserDTO getUserById(Long userId)
 	{
 		User user = userRepository.findOne(userId);

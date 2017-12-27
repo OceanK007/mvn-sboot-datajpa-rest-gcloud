@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
@@ -24,6 +26,7 @@ Locate your main application class in a root package above other classes.
 
 *************************************************************************************************************
 *************************************************************************************************************/
+@EnableCaching
 @SpringBootApplication
 public class Application 
 {
@@ -40,21 +43,28 @@ public class Application
 	 * on start up. It retrieves all the beans that were created either by your
 	 * app or were automatically added thanks to Spring Boot. It sorts them and
 	 * prints them out.
+	 * 
+	 * You can add parameters as per your requirements.
 	 **/
 	@Bean
-	public CommandLineRunner commandLineRunner(ApplicationContext applicationContext)
+	public CommandLineRunner commandLineRunner(ApplicationContext applicationContext, CacheManager cacheManager)
 	{
 		return args -> 
 		{
-            System.out.println("Let's inspect the beans provided by Spring Boot:");
             logger.info("INFO: Beans provided by spring boot");
-            
+            logger.info("\n\n" + "=========================================================================\n");
             String[] beanNames = applicationContext.getBeanDefinitionNames();
             Arrays.sort(beanNames);
             for (String beanName : beanNames) 
             {
-                System.out.println(beanName);
+                //System.out.println(beanName);
+            	logger.info(beanName);
             }
+            logger.info("\n\n=========================================================================\n\n");
+            
+            logger.info("\n\n" + "=========================================================================\n"
+    					+ "Using cache manager: " + cacheManager.getClass().getName() + "\n"
+    					+ "=========================================================================\n\n");
         };
 	}
 }

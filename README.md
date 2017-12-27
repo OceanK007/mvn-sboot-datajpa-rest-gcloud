@@ -198,6 +198,75 @@ public class Foo
    }
 }
 
+** ============ @CacheConfig & @Cacheable =========== **
+@CacheConfig annotation is used at class level to share common cache related settings. 
+All the methods of the class annotated with @Cacheable gets a common cache related settings provided by @CacheConfig. 
+The attributes of @CacheConfig are cacheNames, cacheManager, cacheResolver and keyGenerator. 
+We can override the class level cache related setting for a method using attributes of @Cacheable.
+
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+@Service
+@CacheConfig(cacheNames="mycacheone")
+public class Student {
+   @Cacheable
+   public String getStudentName(int stdId) {
+	System.out.println("execute getStudentName method...");
+	if (stdId == 1) {
+		return "Ramesh";
+	} else {
+		return "Mahesh";
+	}
+   }
+   @Cacheable(value = "mycachetwo")
+   public String getCity(int cityId) {
+	System.out.println("execute getCity method...");
+	if (cityId == 1) {
+		return "Varanasi";
+	} else {
+		return "Allahabad";
+	}
+   }
+} 
+
+1.	The class has two methods and both are annotated with @Cacheable annotation. 
+2.	With the help of @CacheConfig at class level, we have configured cache name as mycacheone, so all the methods annotated with @Cacheable will use this cache name until we do not override. 
+3.	getStudentName() method will use mycacheone cache name where as getCity() will use mycachetwo cache name because this method has overridden cache name using @Cacheable(value = "mycachetwo"). 
+4.	If the method is not annotated with @Cacheable, the result of that method will not be cached.
+
+---------------------------------------------------------------------------------------
+
+The Cacheable annotation takes three arguments: value, which is mandatory, together with key and condition. 
+The first of these, value, is used to specify the name of the cache (or caches) in which the a method’s return value is stored.
+
+ @Cacheable(value = "employee")
+  public Person findEmployee(String firstName, String surname, int age) {
+    return new Person(firstName, surname, age);
+  }
+
+The code above ensures that the new Person object is stored in the “employee” cache. 
+
+Any data stored in a cache requires a key for its speedy retrieval. Spring, by default, creates caching keys using the annotated method’s 
+signature as demonstrated by the code above. You can override this using @Cacheable’s second parameter: key. To define a custom key you use a SpEL expression.
+
+@Cacheable(value = "employee", key = "#surname")
+  public Person findEmployeeBySurname(String firstName, String surname, int age) {
+    return new Person(firstName, surname, age);
+  }
+  
+In the findEmployeeBySurname(...) code, the ‘#surname’ string is a SpEL expression that means ‘go and create a key using the surname argument of the findEmployeeBySurname(...) method’. 
+
+The final @Cacheable argument is the optional condition argument. Again, this references a SpEL expression, but this time it’s 
+specifies a condition that’s used to determine whether or not your method’s return value is added to the cache.
+
+ @Cacheable(value = "employee", condition = "#age < 25")
+  public Person findEmployeeByAge(String firstName, String surname, int age) {
+    return new Person(firstName, surname, age);
+  }
+  
+In the code above, I’ve applied the ludicrous business rule of only caching Person objects if the employee is less than 25 years old.
+
 # Spring boot URLs
 https://spring.io/guides/gs/spring-boot/
 
@@ -241,5 +310,5 @@ https://dzone.com/articles/spring-boot-restful-api-documentation-with-swagger
 https://stackoverflow.com/questions/817856/when-and-how-should-i-use-a-threadlocal-variable
 
 # Cache URLs
-https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-cache
+https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-cache				// Scheduler + profiling
 https://memorynotfound.com/spring-boot-ehcache-2-caching-example-configuration/
