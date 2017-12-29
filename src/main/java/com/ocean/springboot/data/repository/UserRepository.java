@@ -38,6 +38,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 	@Cacheable
 	User findById(Long id);
 	
+	//@Cacheable	// Projection is not cacheable right now //java.io.NotSerializableException: org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor
 	@Query(value="SELECT u.id as userId, u.username as userName, u.userDetail.firstName as firstName, u.userDetail.lastName as lastName, u.userDetail.email as email, u.role.roleType as role FROM User u")
 	Page<UserSummaryProjection> findUserBriefByPage(Pageable pageable);
 	

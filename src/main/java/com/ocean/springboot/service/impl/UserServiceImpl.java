@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -64,6 +65,7 @@ public class UserServiceImpl implements UserService
 	protected EntityManager entityManager;
 	
 	@Override
+	@CacheEvict(cacheNames="userServiceCache", allEntries = true)
 	public UserDTO createUser(UserDTO userDTO, String zoneId) 
 	{
 		Map<String, String> validationErrors = userValidator.validate(userDTO);
@@ -82,6 +84,7 @@ public class UserServiceImpl implements UserService
 	}
 	
 	@Override
+	@CacheEvict(cacheNames="userServiceCache", allEntries = true)
 	public UserDTO updateUser(UserDTO userDTO, String zoneId) 
 	{
 		User user = userRepository.findById(userDTO.getId());
@@ -124,6 +127,7 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
+	@Cacheable	// Unable to cache criteria
 	public Page<UserDTO> searchUserByPageCriteria(UserDTO userDTO, Pageable pageable) 
 	{
 		// Search criteria applies on : firstName, lastName, roleType, username, userId, email
@@ -179,6 +183,7 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
+	//@Cacheable	// Unable to cache specifications
 	public Page<UserDTO> searchUserByPageSpecification(UserDTO userDTO, Pageable pageable) 
 	{
 		Page<User> pageUserList = userRepository.findAll(UserSpecification.searchUserBySpecification(userDTO), pageable);

@@ -1,5 +1,7 @@
 package com.ocean.springboot.data.entity.specification;
 
+import java.io.Serializable;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -15,8 +17,10 @@ import com.ocean.springboot.data.entity.UserDetail_;
 import com.ocean.springboot.data.entity.User_;
 import com.ocean.springboot.data.enums.RoleType;
 
-public class UserSpecification
+public class UserSpecification implements Serializable
 {
+	private static final long serialVersionUID = 4358394460138474775L;
+
 	public static Specification<User> searchUserBySpecification(final UserDTO userDTO)
 	{
 		return new Specification<User>() 

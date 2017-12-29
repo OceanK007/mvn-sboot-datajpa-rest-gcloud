@@ -116,8 +116,8 @@ public class UserApi
 	@RequestMapping(value="/searchUser", method=RequestMethod.POST)
 	public Page<UserDTO> createUser(@RequestBody UserDTO userDTO, Pageable pageable)
 	{
-		//return userService.searchUserByPageCriteria(userDTO, pageable);
-		return userService.searchUserByPageSpecification(userDTO, pageable);
+		return userService.searchUserByPageCriteria(userDTO, pageable);
+		//return userService.searchUserByPageSpecification(userDTO, pageable);
 	}
 	
 	@RequestMapping(value="/userBriefList", method=RequestMethod.GET)
