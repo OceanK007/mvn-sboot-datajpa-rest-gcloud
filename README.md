@@ -51,6 +51,7 @@
 	> Adding QueryDSL for dynamic query generation. (Still didn't implement)
 	> Adding Projection to fetch specific numbers of columns.
 	> Adding AOP on class and method level annotations.
+	> Adding Caching @Service and @Repository levels
 
 
 # To do
@@ -265,7 +266,15 @@ specifies a condition that’s used to determine whether or not your method’s 
     return new Person(firstName, surname, age);
   }
   
-In the code above, I’ve applied the ludicrous business rule of only caching Person objects if the employee is less than 25 years old.
+In the code above, we’ve applied the ludicrous business rule of only caching Person objects if the employee is less than 25 years old.
+
+** ============ Connection Pooling =========== **
+
+* Spring Boot is using Tomcat pooling by default.
+
+   org.apache.tomcat.jdbc.pool.DataSource@55c16e2c{ConnectionPool[defaultAutoCommit=null; defaultReadOnly=null; ... }
+
+* HikariCP seems to perform better than the other connection pools like — C3P0, BoneCP, and Apache DBCP
 
 # Spring boot URLs
 https://spring.io/guides/gs/spring-boot/
@@ -312,3 +321,10 @@ https://stackoverflow.com/questions/817856/when-and-how-should-i-use-a-threadloc
 # Cache URLs
 https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples/spring-boot-sample-cache				// Scheduler + profiling
 https://memorynotfound.com/spring-boot-ehcache-2-caching-example-configuration/
+
+# Connection Pooling URLs
+https://www.wix.engineering/single-post/how-does-hikaricp-compare-to-other-connection-pools
+https://github.com/hendisantika/HikariCP/blob/master/pom.xml
+https://www.mkyong.com/spring-boot/spring-boot-how-to-know-which-connection-pool-is-used/
+http://www.mkyong.com/spring-boot/spring-boot-jdbc-mysql-hikaricp-example/
+https://github.com/brettwooldridge/HikariCP/wiki/MBean-(JMX)-Monitoring-and-Management
