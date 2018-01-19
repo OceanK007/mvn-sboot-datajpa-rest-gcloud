@@ -9,13 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.metadata.HikariDataSourcePoolMetadata;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-
-import com.ocean.springboot.data.entity.User;
 
 /*************************************************************************************************************
 **************************************************************************************************************
@@ -52,7 +49,7 @@ public class Application
 	 * You can add parameters as per your requirements.
 	 **/
 	@Bean
-	public CommandLineRunner commandLineRunner(ApplicationContext applicationContext, CacheManager cacheManager, DataSource dataSource, HikariDataSourcePoolMetadata hikariDataSourcePoolMetadata)
+	public CommandLineRunner commandLineRunner(ApplicationContext applicationContext, CacheManager cacheManager, DataSource dataSource)
 	{
 		return args -> 
 		{
@@ -74,8 +71,6 @@ public class Application
             logger.info("\n\n" + "=========================================================================\n"
 					+ "Using Datasource: " + dataSource + "\n"
 					+ "=========================================================================\n\n");
-            
-            logger.info(""+hikariDataSourcePoolMetadata.getActive());
         };
 	}
 }

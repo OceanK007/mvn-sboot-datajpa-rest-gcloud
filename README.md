@@ -55,7 +55,6 @@
 
 
 # To do
-* connection pooling
 * Transaction management
 * Logging AOP
 * Global exception handling
@@ -276,6 +275,66 @@ In the code above, we’ve applied the ludicrous business rule of only caching P
 
 * HikariCP seems to perform better than the other connection pools like — C3P0, BoneCP, and Apache DBCP
 
+** ============ Google Compute Engine Vs Google App Engine (Standard) vs Google App Engine (Flexible) =========== **
+
+* Compute Engine is analogous to a virtual PC, where you'd deploy a small website + database, for instance. You manage everything, including control of installed disk drives. If you deploy a website, you're in charge of setting up DNS etc.
+
+* Google App Engine (Standard) is like a read-only sandboxed folder where you upload code to execute from and don't worry about the rest (yes: read-only). DNS / Sub-domains etc is so much easier to map.
+
+* Google App Engine (Flexible) is in fact like a whole file-system (not just a locked down folder), where you have more power than the Standard engine, e.g. you have read/write permissions, (but less compared to a Compute Engine). In GAE standard you have a fixed set of libraries installed for you and you cannot deploy 3rd party libraries at will. In the Flexible environment you can install whatever library your app depends on, including custom build environments (such as Python 3).
+
+Although GAE Standard is very cumbersome to deal with (although Google makes it sound simple), it scales really well when put under pressure. It's cumbersome because you need to test and ensure compatibility with the locked-down environment and ensure any 3rd party library you use does not use any other 3rd party library you're unaware of which may not work on GAE standard. It takes longer to set it up in practice but can be more rewarding in the longer run for simple deployments.
+
+** ============ SAAS vs PAAS vs IAAS =========== **
+
+The cloud is a very broad concept, and it covers just about every possible sort of online service, but when businesses refer to cloud procurement, 
+there are usually three models of cloud service under consideration, Software as a Service (SaaS), Platform as a Service (PaaS), 
+and Infrastructure as a Service (IaaS). Each has its own intricacies and hybrid cloud models, but today we’re going to help you develop an understanding 
+of the high-level differences between SaaS, PaaS, and IaaS.
+
+* SOFTWARE AS A SERVICE
+In some ways, SaaS is very similar to the old thin-client model of software provision, where clients, in this case usually web browsers, 
+provide the point of access to software running on servers. SaaS is the most familiar form of cloud service for consumers. SaaS moves the
+task of managing software and its deployment to third-party services. Among the most familiar SaaS applications for business are customer 
+relationship management applications like Salesforce, productivity software suites like Google Apps, and storage solutions brothers like Box and Dropbox.
+
+Use of SaaS applications tends to reduce the cost of software ownership by removing the need for technical staff to manage install, manage, 
+and upgrade software, as well as reduce the cost of licensing software. SaaS applications are usually provided on a subscription model.
+
+* PLATFORM AS A SERVICE
+PaaS functions at a lower level than SaaS, typically providing a platform on which software can be developed and deployed. PaaS providers 
+abstract much of the work of dealing with servers and give clients an environment in which the operating system and server software, as well 
+as the underlying server hardware and network infrastructure are taken care of, leaving users free to focus on the business side of scalability, 
+and the application development of their product or service.
+
+As with most cloud services, PaaS is built on top of virtualization technology. Businesses can requisition resources as they need them, scaling 
+as demand grows, rather than investing in hardware with redundant resources.
+
+Examples of PaaS providers include Heroku, Google App Engine, and Red Hat’s OpenShift.
+
+* INFRASTRUCTURE AS A SERVICE
+Moving down the stack, we get to the fundamental building blocks for cloud services. IaaS is comprised of highly automated and scalable compute 
+resources, complemented by cloud storage and network capability which can be self-provisioned, metered, and available on-demand.
+
+IaaS providers offer these cloud servers and their associated resources via dashboard and/or API. IaaS clients have direct access to their servers 
+and storage, just as they would with traditional servers but gain access to a much higher order of scalability. Users of IaaS can outsource and 
+build a “virtual data center” in the cloud and have access to many of the same technologies and resource capabilities of a traditional data center 
+without having to invest in capacity planning or the physical maintenance and management of it.
+
+IaaS is the most flexible cloud computing model and allows for automated deployment of servers, processing power, storage, and networking. IaaS 
+clients have true control over their infrastructure than users of PaaS or SaaS services. The main uses of IaaS include the actual development 
+and deployment of PaaS, SaaS, and web-scale applications.
+
+There are a lot of providers offering Infrastructure as a Service such as Google Cloud Engine, Navisite, exoscale, and Softlayer reach with their own unique value proposition and service portfolio to choose from.
+
+** ============ Linux commands =========== **
+ls 									:: To display all folders of current directory
+cd /								:: To go to root 
+cd ~								:: To go to home
+dpkg-query -l						:: To display all installed packages
+dpkg-query -L firefox				:: To display the installation folder
+someCommand > someFile.txt 			:: To save the command console output in a text file
+
 # Spring boot URLs
 https://spring.io/guides/gs/spring-boot/
 
@@ -328,3 +387,13 @@ https://github.com/hendisantika/HikariCP/blob/master/pom.xml
 https://www.mkyong.com/spring-boot/spring-boot-how-to-know-which-connection-pool-is-used/
 http://www.mkyong.com/spring-boot/spring-boot-jdbc-mysql-hikaricp-example/
 https://github.com/brettwooldridge/HikariCP/wiki/MBean-(JMX)-Monitoring-and-Management
+
+# Google Compute Engine Vs Google App Engine (Standard) vs Google App Engine (Flexible) Urls
+https://stackoverflow.com/questions/22697049/what-is-the-difference-between-google-app-engine-and-google-compute-engine
+
+# SAAS vs PAAS vs IAAS
+https://www.computenext.com/blog/when-to-use-saas-paas-and-iaas/
+
+# Google Cloud
+https://cloud.google.com/compute/docs/quickstarts
+https://cloud.google.com/compute/docs/tutorials/basic-webserver-apache
