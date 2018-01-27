@@ -63,6 +63,11 @@
 * Mongo DB
 * ThreadLocal variables
 * Profiles using pom and java
+* JUnit
+* Big Query
+* Cloud api usage
+* Https implementation
+* Run spring-boot on different port
 	
 # General information
 
@@ -397,3 +402,8 @@ https://www.computenext.com/blog/when-to-use-saas-paas-and-iaas/
 # Google Cloud
 https://cloud.google.com/compute/docs/quickstarts
 https://cloud.google.com/compute/docs/tutorials/basic-webserver-apache
+
+# MongoDB
+http://www.baeldung.com/queries-in-spring-data-mongodb
+https://www.mkyong.com/spring-boot/spring-boot-spring-data-mongodb-example/
+http://javasampleapproach.com/spring-framework/spring-data/mongodb-model-one-one-one-many-relationships-mongodb-embedded-documents-springboot
