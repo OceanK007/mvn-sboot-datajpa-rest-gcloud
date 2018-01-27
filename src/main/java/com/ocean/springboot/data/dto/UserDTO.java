@@ -1,13 +1,23 @@
 package com.ocean.springboot.data.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+@JsonInclude(Include.NON_NULL)	// To remove null fields from json
 public class UserDTO extends AbstractMasterDTO
 {
+	private String mongoId;
 	private String username;
 	private String password;
 	private RoleDTO roleDTO;
 	private UserDetailDTO userDetailDTO;
 	
+	public String getMongoId() {
+		return mongoId;
+	}
+	public void setMongoId(String mongoId) {
+		this.mongoId = mongoId;
+	}
 	public String getUsername() {
 		return username;
 	}

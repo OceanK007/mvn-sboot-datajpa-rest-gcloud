@@ -43,6 +43,12 @@
             </exclusions>
         </dependency>
         
+        <!-- Additional: Spring data MongoDB -->
+        <dependency>
+	        <groupId>org.springframework.data</groupId>
+	        <artifactId>spring-data-mongodb</artifactId>
+	    </dependency>
+        
         <!-- The H2 Console application lets you access a database using a browser. 
         This can be a H2 database, or another database that supports the JDBC API. 
         This is a client/server application, so both a server and a client (a browser) are required to run it. -->

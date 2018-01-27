@@ -39,7 +39,7 @@ public class LoggingMethodAspect
 	public void onControllerServiceDaoPackage() {}
 	
 	// Not any prerequisite required	
-	@Pointcut("execution(* com.ocean.springboot.api.endpoint.*.*(..))")
+	@Pointcut("execution(* com.ocean.springboot.api.endpoint.*.*(..)) || execution(* com.ocean.springboot.api.mongo.endpoint.*.*(..))")
 	public void onControllerPackage() {}
 	
 	@Around(value="onControllerPackage()")

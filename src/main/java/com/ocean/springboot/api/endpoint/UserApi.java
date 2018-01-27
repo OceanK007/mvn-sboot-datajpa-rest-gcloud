@@ -64,12 +64,7 @@ public class UserApi
 	{
 		return userService.updateUser(userDTO, zoneId);
 	}
-	
-	/** 
-		@GetMapping is a shortcut for @RequestMapping(method=RequestMethod.GET)
-		@GetMapping(path="/add") map only GET requests
-		@RequestMapping maps all HTTP operations by default. Use @RequestMapping(method=RequestMethod.GET) or other shortcut annotations to narrow this mapping.
-	**/
+
 	/**
 	 	localhost:8080/api/user/list?page=0&size=10
 	 	or
@@ -86,6 +81,11 @@ public class UserApi
 		return userService.getUserByPage(pageable);
 	}
 	
+	/** 
+		@GetMapping is a shortcut for @RequestMapping(method=RequestMethod.GET)
+		@GetMapping(path="/add") map only GET requests
+		@RequestMapping maps all HTTP operations by default. Use @RequestMapping(method=RequestMethod.GET) or other shortcut annotations to narrow this mapping.
+	**/
 	@GetMapping(path="/get")
 	public UserDTO getUserById(@RequestParam("userId") Long id)
 	{
