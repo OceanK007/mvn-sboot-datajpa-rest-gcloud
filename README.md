@@ -51,9 +51,27 @@
 	> Adding QueryDSL for dynamic query generation. (Still didn't implement)
 	> Adding Projection to fetch specific numbers of columns.
 	> Adding AOP on class and method level annotations.
-	> Adding Caching @Service and @Repository levels
+	> Adding Caching @Service and @Repository levels.
 
-
+# Branch: sboot-datajpa-mongodb
+   	> Adding External configuration (.properties file configuration)
+   	> Adding JUnit
+   	> Adding Logging functionality slf4j
+	> Adding Management services (health, audit, beans and more)
+	> Adding Data JPA with Hibernate as implementation
+	> Adding MySQL as database
+	> Adding modelMapper to map DTO to Entity and vice-versa
+	> Adding JodaTime
+	> Adding Exception handling for Validations fail. Plus modified some pre-defined exceptions for better explanation
+	> Adding indexes to optimize the search from database.
+	> Adding Criteria for dynamic query generation.
+	> Adding Specification for dynamic query generation.
+	> Adding QueryDSL for dynamic query generation. (Still didn't implement)
+	> Adding Projection to fetch specific numbers of columns.
+	> Adding AOP on class and method level annotations.
+	> Adding Caching @Service and @Repository levels.
+	> Adding mongodb crud operation.
+	
 # To do
 * Transaction management
 * Logging AOP
