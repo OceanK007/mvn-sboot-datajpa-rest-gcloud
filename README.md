@@ -71,22 +71,7 @@
 	> Adding AOP on class and method level annotations.
 	> Adding Caching @Service and @Repository levels.
 	> Adding mongodb crud operation.
-	
-# To do
-* Transaction management
-* Logging AOP
-* Global exception handling
-* session management
-* Bulk Updation
-* Mongo DB
-* ThreadLocal variables
-* Profiles using pom and java
-* JUnit
-* Big Query
-* Cloud api usage
-* Https implementation
-* Run spring-boot on different port
-	
+		
 # General information
 
 ** ============ Indexes =========== **
