@@ -78,7 +78,6 @@
 * Global exception handling
 * session management
 * Bulk Updation
-* Mongo DB
 * ThreadLocal variables
 * Profiles using pom and java
 * JUnit
