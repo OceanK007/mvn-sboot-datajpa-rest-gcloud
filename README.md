@@ -85,6 +85,7 @@
 * Cloud api usage
 * Https implementation
 * Run spring-boot on different port
+* Design Patterns
 	
 # General information
 
@@ -424,3 +425,9 @@ https://cloud.google.com/compute/docs/tutorials/basic-webserver-apache
 http://www.baeldung.com/queries-in-spring-data-mongodb
 https://www.mkyong.com/spring-boot/spring-boot-spring-data-mongodb-example/
 http://javasampleapproach.com/spring-framework/spring-data/mongodb-model-one-one-one-many-relationships-mongodb-embedded-documents-springboot
+
+# JUnit with Mockito
+http://www.springboottutorial.com/spring-boot-unit-testing-and-mocking-with-mockito-and-junit
+
+# Design Patterns
+https://www.mkyong.com/design-pattern/java-builder-design-pattern-example/
