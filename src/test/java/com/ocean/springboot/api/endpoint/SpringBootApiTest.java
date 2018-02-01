@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-//@RunWith(SpringRunner.class)	// SpringRunner extends SpringJUnit4ClassRunner which extends BlockJUnit4ClassRunner
-@RunWith(MockitoJUnitRunner.class)	// Applicable for Junit 4.4 and higher	// More preferable
+@RunWith(SpringRunner.class)	// SpringRunner extends SpringJUnit4ClassRunner which extends BlockJUnit4ClassRunner // If u don't use it then "mvn clean install" will throw exception.
+//@RunWith(MockitoJUnitRunner.class)	// Applicable for Junit 4.4 and higher	// More preferable
 @SpringBootTest
 @AutoConfigureMockMvc
 public class SpringBootApiTest 

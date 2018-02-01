@@ -350,6 +350,40 @@ and deployment of PaaS, SaaS, and web-scale applications.
 
 There are a lot of providers offering Infrastructure as a Service such as Google Cloud Engine, Navisite, exoscale, and Softlayer reach with their own unique value proposition and service portfolio to choose from.
 
+** ============ JUnit with Mockito =========== **
+
+** @RunWith(MockitoJUnitRunner.class)
+
+In order for mockito annotations to be enabled, we’ll need to annotate the JUnit test with a runner – MockitoJUnitRunner
+
+Alternatively, we can enable these annotations programmatically as well, by invoking MockitoAnnotations.initMocks() as in the following example:
+@Before
+public void init() 
+{
+    MockitoAnnotations.initMocks(this);
+}
+
+
+** @Mocks vs @InjectMocks
+
+@Mock creates a mock. @InjectMocks creates an instance of the class and injects the mocks that are created with the @Mock (or @Spy) annotations into this instance. 
+Note that you must use @RunWith(MockitoJUnitRunner.class) or Mockito.initMocks(this) to initialise these mocks and inject them.
+
+Example:
+
+ @RunWith(MockitoJUnitRunner.class)
+ public class SomeManagerTest 
+ {
+	@InjectMocks
+	private SomeManager someManager;
+		
+ 	@Mock
+	private SomeDependency someDependency; // this will be injected into someManager
+		
+ 	//tests...
+ }
+
+
 ** ============ Linux commands =========== **
 ls 									:: To display all folders of current directory
 cd /								:: To go to root 
@@ -429,6 +463,7 @@ http://javasampleapproach.com/spring-framework/spring-data/mongodb-model-one-one
 # JUnit with Mockito
 http://www.springboottutorial.com/spring-boot-unit-testing-and-mocking-with-mockito-and-junit
 http://www.baeldung.com/mockito-behavior
+http://www.baeldung.com/mockito-annotations
 
 # Design Patterns
 https://www.mkyong.com/design-pattern/java-builder-design-pattern-example/
