@@ -6,6 +6,8 @@ import java.util.Map;
 public class MyDictionary 
 {
 	Map<String, String> wordMap;
+	
+	//Map<String, String> tempForTest;		// Unable to mock if you define another field with same data type
 	 
 	public MyDictionary() 
 	{
@@ -13,13 +15,13 @@ public class MyDictionary
 	    wordMap = new HashMap<String, String>();
 	}
 	
-	public void add(final String word, final String meaning) 
+	public void add(String word, String meaning) 
 	{
 		System.out.println("Adding element in wordMap");
 	    wordMap.put(word, meaning);
 	}
 	
-	public String getMeaning(final String word) 
+	public String getMeaning(String word) 
 	{
 		System.out.println("Fetching element of wordMap");
 	    return wordMap.get(word);

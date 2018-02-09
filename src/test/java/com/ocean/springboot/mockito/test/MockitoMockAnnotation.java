@@ -10,9 +10,24 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+	Use this if you don't want to use @RunWith(MockitoJUnitRunner.class) annotation
+	
+	@Before
+	public void setUp() throws Exception 
+	{
+	    MockitoAnnotations.initMocks(this);
+	}
+**/
 @RunWith(MockitoJUnitRunner.class)												// Applicable for Junit 4.4 and higher	// More preferable
 public class MockitoMockAnnotation 
 {
+	/*@Before
+    public void setUp() throws Exception 
+	{
+        MockitoAnnotations.initMocks(this);
+    }*/
+	
 	@Mock 
 	List<String> mockList;														// mock: Creates mock object of given class or interface. 
 	
@@ -25,12 +40,12 @@ public class MockitoMockAnnotation
 		//mockList.add("Two");
 		
 		/** verify: Verifies certain behavior happened once. Arguments passed are compared using equals() method, so it's case-sensitive **/
-		Mockito.verify(mockList).add("One");									// True since "One" parameter is passed one time at least
-		//Mockito.verify(mockList).add("one");									// false since "one" parameter has not passed (Case-sensitivity)
-		//Mockito.verify(mockList, Mockito.times(1)).add("One");				// True since "One" parameter is passed one time at least
-		//Mockito.verify(mockList, Mockito.times(2)).add("One");				// Fails since "One" parameter is passed only one time
-		//Mockito.verify(mockList, Mockito.times(1)).add(Mockito.anyString());	// True, since any string parameter is passed two times at least
-		//Mockito.verify(mockList, Mockito.times(3)).add(Mockito.anyString());	// Fails, since any string parameter is passed two times only
+		Mockito.verify(mockList).add("One");									// True since add("One") has called one time 	// Default times is 1 only
+		//Mockito.verify(mockList).add("one");									// false since add("one") has not called (Case-sensitivity for parameter)
+		//Mockito.verify(mockList, Mockito.times(1)).add("One");				// True since add("One") has called one time
+		//Mockito.verify(mockList, Mockito.times(2)).add("One");				// Fails since add("One") has called one time only not two times
+		//Mockito.verify(mockList, Mockito.times(1)).add(Mockito.anyString());	// True, since add("One") has called one time
+		//Mockito.verify(mockList, Mockito.times(3)).add(Mockito.anyString());	// Fails, since add("One") has called one time only not three times
 		
 		System.out.println("mockList.size(): "+mockList.size()); 				// Will print 0
 		Assert.assertEquals(0, mockList.size());								//  Asserts that two objects are equal. If they are not, an exception is thrown
@@ -48,11 +63,12 @@ public class MockitoMockAnnotation
 		//mockList.add("Two");
 		
 		/** verify: Verifies certain behavior happened once. Arguments passed are compared using equals() method, so it's case-sensitive **/
-		Mockito.verify(mockList).add("One");									// True since "One" parameter is passed one time at least
-		//Mockito.verify(mockList, Mockito.times(1)).add("One");				// True since "One" parameter is passed one time at least
-		//Mockito.verify(mockList, Mockito.times(2)).add("One");				// Fails since "One" parameter is passed only one time
-		//Mockito.verify(mockList, Mockito.times(2)).add(Mockito.anyString());	// True, since any string parameter is passed two times at least
-		//Mockito.verify(mockList, Mockito.times(3)).add(Mockito.anyString());	// Fails, since any string parameter is passed two times only
+		Mockito.verify(mockList).add("One");									// True since add("One") has called one time 	// Default times is 1 only
+		//Mockito.verify(mockList).add("one");									// false since add("one") has not called (Case-sensitivity for parameter)
+		//Mockito.verify(mockList, Mockito.times(1)).add("One");				// True since add("One") has called one time
+		//Mockito.verify(mockList, Mockito.times(2)).add("One");				// Fails since add("One") has called one time only not two times
+		//Mockito.verify(mockList, Mockito.times(1)).add(Mockito.anyString());	// True, since add("One") has called one time
+		//Mockito.verify(mockList, Mockito.times(3)).add(Mockito.anyString());	// Fails, since add("One") has called one time only not three times
 		
 		System.out.println("mockList.size(): "+mockList.size()); 				// Will print 0
 		Assert.assertEquals(0, mockList.size());								// Asserts that two objects are equal. If they are not, an exception is thrown

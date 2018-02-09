@@ -55,6 +55,7 @@ public class UserApi
 	public UserDTO createUser(@RequestBody UserDTO userDTO, @RequestHeader(value="zoneId", required=true) String zoneId) throws JsonProcessingException
 	{
 		userDTO = userService.createUser(userDTO, zoneId);
+		logger.info("API: Creating User");
 		logger.info("userDTO: "+objectMapper.writeValueAsString(userDTO));
 		return userDTO;
 	}
@@ -62,6 +63,7 @@ public class UserApi
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public UserDTO updateUser(@RequestBody UserDTO userDTO, @RequestHeader(value="zoneId", required=true) String zoneId)
 	{
+		logger.info("API: Updating User");
 		return userService.updateUser(userDTO, zoneId);
 	}
 	
@@ -83,12 +85,14 @@ public class UserApi
 	//public Page<UserDTO> getUserByPage(@RequestParam(value="page", required=true) int page, @RequestParam(value="pageSize", required=true) int pageSize)
 	public Page<UserDTO> getUserByPage(Pageable pageable)
 	{
+		logger.info("API: Fetching user page list");
 		return userService.getUserByPage(pageable);
 	}
 	
 	@GetMapping(path="/get")
 	public UserDTO getUserById(@RequestParam("userId") Long id)
 	{
+		logger.info("API: Fetching user by id");
 		return userService.getUserById(id);
 	}
 	
@@ -114,8 +118,9 @@ public class UserApi
 	**/
 	
 	@RequestMapping(value="/searchUser", method=RequestMethod.POST)
-	public Page<UserDTO> createUser(@RequestBody UserDTO userDTO, Pageable pageable)
+	public Page<UserDTO> searchUser(@RequestBody UserDTO userDTO, Pageable pageable)
 	{
+		logger.info("API: Searching user list by page");
 		return userService.searchUserByPageCriteria(userDTO, pageable);
 		//return userService.searchUserByPageSpecification(userDTO, pageable);
 	}
@@ -123,6 +128,7 @@ public class UserApi
 	@RequestMapping(value="/userBriefList", method=RequestMethod.GET)
 	public Page<UserDTO> getUserBrief(Pageable pageable)
 	{
+		logger.info("API: Searching user brief list by page");
 		return userService.getUserBriefByPage(pageable);
 	}
 }

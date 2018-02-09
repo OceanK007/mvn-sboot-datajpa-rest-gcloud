@@ -119,6 +119,21 @@
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
         </dependency>
+        
+        <!-- Additional: Adding PowerMockito -->
+        <!-- Check https://github.com/powermock/powermock/wiki/Mockito to check the applicable version compatible with mockito artifact -->
+        <dependency>
+		    <groupId>org.powermock</groupId>
+		    <artifactId>powermock-module-junit4</artifactId>
+		    <version>1.6.4</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.powermock</groupId>
+		    <artifactId>powermock-api-mockito</artifactId>
+		    <version>1.6.4</version>
+		    <scope>test</scope>
+		</dependency>
     </dependencies>
 
     <properties>

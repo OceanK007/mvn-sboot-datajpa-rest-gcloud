@@ -383,6 +383,30 @@ Example:
  	//tests...
  }
 
+** @Mock injection in @InjectMocks can be done by:
+
+1. Constructor injection; the biggest constructor is chosen, then arguments are resolved with mocks declared in the test only.
+
+   Note: If arguments can not be found, then null is passed. If non-mockable types are wanted, then constructor injection won't happen. In these cases, you will have to satisfy dependencies yourself.
+
+2. Property setter injection; mocks will first be resolved by type, then, if there is several property of the same type, by the match of the property name and the mock name.
+
+   Note 1: If you have properties with the same type (or same erasure), it's better to name all @Mock annotated fields with the matching properties, otherwise Mockito might get confused and injection won't happen.
+
+   Note 2: If @InjectMocks instance wasn't initialized before and have a no-arg constructor, then it will be initialized with this constructor.
+
+3. Field injection; mocks will first be resolved by type, then, if there is several property of the same type, by the match of the field name and the mock name.
+
+   Note 1: If you have fields with the same type (or same erasure), it's better to name all @Mock annotated fields with the matching fields, otherwise Mockito might get confused and injection won't happen.
+
+
+** Power Mockito
+
+With PowerMockito it is possible to mock all the hard cases that Mockito does not support. Most of the time this means mocking of static methods. But it is also possible to mock private methods and constructor calls. 
+
+Basically, PowerMock provides a class called "PowerMockito" for creating mock/object/class and initiating verification, and expectations, everything else you can still use Mockito to setup and verify expectation (e.g. times(), anyInt()).
+
+All usages require @RunWith(PowerMockRunner.class) and @PrepareForTest annotated at class level.
 
 ** ============ Linux commands =========== **
 ls 									:: To display all folders of current directory
@@ -460,10 +484,15 @@ http://www.baeldung.com/queries-in-spring-data-mongodb
 https://www.mkyong.com/spring-boot/spring-boot-spring-data-mongodb-example/
 http://javasampleapproach.com/spring-framework/spring-data/mongodb-model-one-one-one-many-relationships-mongodb-embedded-documents-springboot
 
-# JUnit with Mockito
+# JUnit with Mockito & PowerMockito
 http://www.springboottutorial.com/spring-boot-unit-testing-and-mocking-with-mockito-and-junit
 http://www.baeldung.com/mockito-behavior
 http://www.baeldung.com/mockito-annotations
+https://github.com/pkainulainen/spring-data-jpa-examples/blob/master/criteria-api/src/test/java/net/petrikainulainen/springdata/jpa/web/TodoSearchControllerTest.java
+
+https://github.com/powermock/powermock/wiki/Mockito
+http://www.baeldung.com/intro-to-powermock
+https://blog.codecentric.de/en/2016/03/junit-testing-using-mockito-powermock/
 
 # Design Patterns
 https://www.mkyong.com/design-pattern/java-builder-design-pattern-example/
