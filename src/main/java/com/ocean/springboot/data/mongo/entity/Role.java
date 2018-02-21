@@ -2,11 +2,8 @@ package com.ocean.springboot.data.mongo.entity;
 
 import java.io.Serializable;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import com.ocean.springboot.data.enums.RoleType;
 
-@Document(collection="role")
 public class Role implements Serializable
 {
 	private static final long serialVersionUID = 4164320341535594845L;
