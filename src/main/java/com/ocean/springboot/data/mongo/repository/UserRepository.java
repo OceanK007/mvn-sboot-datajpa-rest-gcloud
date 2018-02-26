@@ -24,6 +24,7 @@ public interface UserRepository extends MongoRepository<User, String>
 {
 	User findByUsername(String username);
 	
+	// db.users.findOne({"userDetail.address" : {$regex : ".*text.*"}});
 	@Query(value="{'userDetail.address': {$regex: ?0}}")		// This is equals to: address like '%text%'
 	List<User> findByAddress(String address);
 }
