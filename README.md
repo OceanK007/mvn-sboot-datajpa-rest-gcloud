@@ -184,6 +184,8 @@ You can create metamodel classes manually. But to avoid manual creation of metad
 Swagger is used to describe and document RESTful APIs.
 
 ** ============ ThreadLocal =========== **
+Since a ThreadLocal is a reference to data within a given Thread. Means if you have a data which you want to have in each thread, then ThreadLocal will provide a reference of that data in each thread.
+
 One possible (and common) use is when you have some object that is not thread-safe, but you want to avoid synchronizing access to that object (like SimpleDateFormat). 
 Instead, give each thread its own instance of the object.
 
