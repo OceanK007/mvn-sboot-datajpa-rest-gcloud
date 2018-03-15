@@ -5,6 +5,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
   
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    
   	<parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -135,10 +139,6 @@
 		    <scope>test</scope>
 		</dependency>
     </dependencies>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
 
     <build>
         <plugins>
