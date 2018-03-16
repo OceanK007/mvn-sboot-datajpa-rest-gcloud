@@ -326,6 +326,8 @@ relationship management applications like Salesforce, productivity software suit
 Use of SaaS applications tends to reduce the cost of software ownership by removing the need for technical staff to manage install, manage, 
 and upgrade software, as well as reduce the cost of licensing software. SaaS applications are usually provided on a subscription model.
 
+Examples of SaaS are google cloud datastore, google cloud storage.
+
 * PLATFORM AS A SERVICE
 PaaS functions at a lower level than SaaS, typically providing a platform on which software can be developed and deployed. PaaS providers 
 abstract much of the work of dealing with servers and give clients an environment in which the operating system and server software, as well 
