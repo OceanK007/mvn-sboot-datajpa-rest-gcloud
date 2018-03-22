@@ -14,12 +14,12 @@ import com.ocean.springboot.annotation.LoggingMethod;
 @Component	// Use @Component else aspect won't work
 public class LoggingMethodAspect 
 {
-	// Prerequisite: Logging.java annotation file is required
+	// Prerequisite: LoggingMethod.java annotation file is required
 	// You have to explicitly define @LoggingMethod on methods 
 	@Pointcut("@annotation(com.ocean.springboot.annotation.LoggingMethod)")
 	public void anyMethodWithLoggingMethodAnnotation() {}
 	
-	// Prerequisite: Logging.java annotation file is required
+	// Prerequisite: LoggingMethod.java annotation file is required
 	// You have to explicitly define @LoggingMethod on methods 
 	@Pointcut("execution(@com.ocean.springboot.annotation.LoggingMethod * *(..))")
 	public void anyMethodWithLoggingMethodAnnotation2() {}
