@@ -138,6 +138,14 @@
 		    <version>1.6.4</version>
 		    <scope>test</scope>
 		</dependency>
+		
+		<!-- Additional: Used to generate differences between DTOs for audit logging -->
+		<dependency>
+		    <groupId>org.javers</groupId>
+		    <artifactId>javers-core</artifactId>
+		    <version>3.8.5</version>
+		</dependency>
+				
     </dependencies>
 
     <build>

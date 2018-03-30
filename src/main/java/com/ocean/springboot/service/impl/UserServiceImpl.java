@@ -40,9 +40,12 @@ import com.ocean.springboot.data.entity.specification.UserSpecification;
 import com.ocean.springboot.data.enums.RoleType;
 import com.ocean.springboot.data.repository.UserRepository;
 import com.ocean.springboot.service.UserService;
+import com.ocean.springboot.util.audit.AuditLog;
 import com.ocean.springboot.util.helper.ModelMapperHelper;
 import com.ocean.springboot.util.mapper.UserMapper;
 import com.ocean.springboot.util.validator.UserValidator;
+
+import  static com.ocean.springboot.util.constant.ApplicationConstant.*;
 
 @Service
 @CacheConfig(cacheNames="userServiceCache")		// To user caching at service layer
@@ -66,6 +69,7 @@ public class UserServiceImpl implements UserService
 	
 	@Override
 	@CacheEvict(cacheNames="userServiceCache", allEntries = true)
+	@AuditLog(objectType = USER_OBJECT_NAME, action = USER_CREATE_ACTION)
 	public UserDTO createUser(UserDTO userDTO, String zoneId) 
 	{
 		Map<String, String> validationErrors = userValidator.validate(userDTO);
@@ -85,6 +89,7 @@ public class UserServiceImpl implements UserService
 	
 	@Override
 	@CacheEvict(cacheNames="userServiceCache", allEntries = true)
+	@AuditLog(objectType = USER_OBJECT_NAME, action = USER_UPDATE_ACTION)
 	public UserDTO updateUser(UserDTO userDTO, String zoneId) 
 	{
 		User user = userRepository.findById(userDTO.getId());
