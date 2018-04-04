@@ -18,9 +18,9 @@ import  static com.ocean.springboot.util.constant.ApplicationConstant.*;
 
 @Aspect
 @Component
-public class PayrollAuditLogAspect extends AuditLogAspect 
+public class UserAuditLogAspect extends AuditLogAspect 
 {
-	private static final Logger logger = LoggerFactory.getLogger(PayrollAuditLogAspect.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserAuditLogAspect.class);
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -28,7 +28,16 @@ public class PayrollAuditLogAspect extends AuditLogAspect
 	@Autowired
 	private UserMapper userMapper;
 	
-	@Around("getLoggableMethods() && args(userDTO, zoneId)")
+	/** You can pass super class as argument here as well **/
+	/* @Around("getLoggableMethods() && args(abstractMasterDTO, zoneId)")	
+	public void updatePayrollAudit(ProceedingJoinPoint joinPoint, AbstractMasterDTO userDTO, String zoneId) throws Throwable {} */
+	
+	/** You can also define just ProceedingJoinPoint and no arguments **/
+	/* @Around("getLoggableMethods()")	
+    public void updatePayrollAudit(ProceedingJoinPoint joinPoint) throws Throwable {} */
+	
+	/** If you are defining args(), then arguments numbers must match the methods's arguments numbers, else @Around won't work for that method **/
+	@Around("getLoggableMethods() && args(userDTO, zoneId)")	
     public void updatePayrollAudit(ProceedingJoinPoint joinPoint, UserDTO userDTO, String zoneId) throws Throwable 
 	{
         logger.info(String.format("updatePayrollAudit : %s, namespace: %s", userDTO.getId(), zoneId));
